@@ -1,12 +1,13 @@
 // Firebase Configuration Keys
 // Replace these placeholders with your actual keys from your Firebase Console (Project Settings -> Web App)
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_PROJECT_ID.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyA0DOl14d6F54fQWfJU5bWHcNM3rivomKQ",
+    authDomain: "kumasi-heritage-virtual-llc.firebaseapp.com",
+    projectId: "kumasi-heritage-virtual-llc",
+    storageBucket: "kumasi-heritage-virtual-llc.firebasestorage.app",
+    messagingSenderId: "582168305638",
+    appId: "1:582168305638:web:96a31ddd02b77d6e998027",
+    measurementId: "G-BPLLXV5WW0"
 };
 
 // Check if keys are placeholders and set up mock if true

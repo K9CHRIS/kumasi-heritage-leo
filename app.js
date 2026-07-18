@@ -128,8 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const hoursVal = document.getElementById('hours');
     const minutesVal = document.getElementById('minutes');
     
-    // Target date: May 29, 2026
-    const targetDate = new Date('May 29, 2026 09:00:00').getTime();
+    // Target date: December 1, 2026
+    const targetDate = new Date('December 1, 2026 09:00:00').getTime();
 
     function updateCountdown() {
         const now = new Date().getTime();
