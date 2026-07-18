@@ -1547,6 +1547,7 @@ body.dark-theme .donations-card {
         align-items: stretch;
     }
     .about-grid,
+    .leadership-grid,
     .contact-grid {
         grid-template-columns: 1fr;
     }
@@ -1581,4 +1582,24 @@ body.dark-theme .donations-card {
     .contact-form-wrapper {
         padding: 24px 20px;
     }
+}
+
+/* Resources Section Styles */
+.resources-section {
+    padding: 100px 0;
+    background-color: var(--bg-secondary);
+}
+
+.resource-card {
+    transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.3s ease, border-color 0.3s ease !important;
+}
+
+.resource-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    border-color: var(--accent) !important;
+}
+
+body.dark-theme .resource-card:hover {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }

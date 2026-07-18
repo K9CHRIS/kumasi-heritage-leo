@@ -45,8 +45,10 @@
                 <ul>
                     <li><a href="#" class="nav-link active">Home</a></li>
                     <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#leadership" class="nav-link">Leadership</a></li>
                     <li><a href="#updates" class="nav-link">Updates</a></li>
                     <li><a href="#projects" class="nav-link">Projects</a></li>
+                    <li><a href="#resources" class="nav-link">Resources</a></li>
                     <li><a href="#gallery" class="nav-link">Gallery</a></li>
                     <li><a href="#donate" class="nav-link">Donate</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
@@ -195,6 +197,37 @@
             </div>
         </section>
 
+        <!-- Leadership Section -->
+        <section class="leadership-section id-anchor" id="leadership" style="padding: 100px 0; background-color: var(--bg-primary);">
+            <div class="container">
+                <div class="section-header text-center reveal">
+                    <span class="section-subtitle">Our Team</span>
+                    <h2>Club Leadership</h2>
+                    <p class="section-desc">Meet the officers guiding Kumasi Heritage Virtual Leo-Lions Club in service and leadership.</p>
+                </div>
+                
+                <div class="leadership-grid reveal" style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 50px; margin-top: 50px; align-items: center;">
+                    <!-- President Profile Card -->
+                    <div class="president-card" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 30px; display: flex; flex-direction: column; align-items: center; text-align: center; box-shadow: var(--shadow-sm);">
+                        <div class="president-img-wrapper" style="width: 180px; height: 180px; border-radius: 50%; overflow: hidden; margin-bottom: 20px; border: 4px solid var(--accent); position: relative; background: var(--bg-secondary);">
+                            <img src="assets/president_edwina.png" alt="Leo-Lion Edwina Efua Quartey - President" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                        </div>
+                        <h3 style="font-size: 1.5rem; color: var(--text-primary); margin-bottom: 5px;">Edwina Efua Quartey</h3>
+                        <span class="role-badge" style="background: var(--primary); color: #fff; padding: 4px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;">Club President</span>
+                        <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; margin-bottom: 0;">"Leading our club in service is an honor. Grounded by our heritage and united in friendship, we are committed to making a difference in the lives of those we serve in Kumasi and beyond."</p>
+                    </div>
+                    
+                    <!-- Board Poster View -->
+                    <div class="board-poster-wrapper" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 25px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column;">
+                        <h3 style="font-size: 1.35rem; color: var(--text-primary); margin-bottom: 15px; border-bottom: 2px solid var(--border-color); padding-bottom: 10px;">Board of Directors (2026/2027)</h3>
+                        <div style="position: relative; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color);">
+                            <img src="assets/board_directors.png" alt="Board of Directors Poster" style="width: 100%; height: auto; display: block;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- President's Updates Section (Dynamic Firestore Feed) -->
         <section class="updates-section id-anchor" id="updates">
             <div class="container">
@@ -260,6 +293,55 @@
                             <p>Our academic support circles offer free tutoring, literacy support, and digital literacy skills to youth in underfunded areas.</p>
                             <a href="#contact" class="project-link">Get Involved &rarr;</a>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resources / Documents Section -->
+        <section class="resources-section id-anchor" id="resources">
+            <div class="container">
+                <div class="section-header text-center reveal">
+                    <span class="section-subtitle">Downloads & Materials</span>
+                    <h2>Club Resources</h2>
+                    <p class="section-desc">Access our official calendar, guidelines, and service information documents.</p>
+                </div>
+                
+                <div class="resources-grid reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
+                    <!-- Doc 1 -->
+                    <div class="resource-card" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 25px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease;">
+                        <div>
+                            <span style="font-size: 2.5rem; display: inline-block; margin-bottom: 15px;">📅</span>
+                            <h3 style="font-size: 1.25rem; margin-bottom: 10px; color: var(--text-primary);">Service Calendar</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5;">View the official schedule of events, service programs, and meetings for the Lions Club calendar year.</p>
+                        </div>
+                        <a href="Documents/Lions Club Service Calendar_en.docx" download class="btn btn-secondary btn-sm" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px;">
+                            <span>Download DOCX</span> 📥
+                        </a>
+                    </div>
+
+                    <!-- Doc 2 -->
+                    <div class="resource-card" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 25px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease;">
+                        <div>
+                            <span style="font-size: 2.5rem; display: inline-block; margin-bottom: 15px;">🏆</span>
+                            <h3 style="font-size: 1.25rem; margin-bottom: 10px; color: var(--text-primary);">Club Excellence Awards</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5;">Official guidelines and application details for members and clubs aiming to achieve excellence and recognition.</p>
+                        </div>
+                        <a href="Documents/CLUB EXCELLENCE AWARDS.pdf" target="_blank" class="btn btn-secondary btn-sm" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px;">
+                            <span>View PDF</span> 📄
+                        </a>
+                    </div>
+
+                    <!-- Doc 3 -->
+                    <div class="resource-card" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 25px; display: flex; flex-direction: column; justify-content: space-between; transition: all 0.3s ease;">
+                        <div>
+                            <span style="font-size: 2.5rem; display: inline-block; margin-bottom: 15px;">ℹ️</span>
+                            <h3 style="font-size: 1.25rem; margin-bottom: 10px; color: var(--text-primary);">Service Activity Info</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5;">Detailed instructions, definitions, and reporting requirements for conducting and recording service projects.</p>
+                        </div>
+                        <a href="Documents/Service Activity Information.pdf" target="_blank" class="btn btn-secondary btn-sm" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px;">
+                            <span>View PDF</span> 📄
+                        </a>
                     </div>
                 </div>
             </div>
@@ -502,19 +584,21 @@
                     <ul>
                         <li><a href="#">Home</a></li>
                         <li><a href="#about">About</a></li>
+                        <li><a href="#leadership">Leadership</a></li>
                         <li><a href="#updates">Updates</a></li>
                         <li><a href="#projects">Projects</a></li>
+                        <li><a href="#resources">Resources</a></li>
                         <li><a href="#gallery">Gallery</a></li>
-                        <li><a href="#donate">Donate</a></li>
                     </ul>
                 </div>
                 <div class="footer-socials">
                     <h4>Follow Us</h4>
                     <div class="social-icons">
-                        <a href="#" aria-label="Facebook">📘</a>
-                        <a href="#" aria-label="Instagram">📸</a>
-                        <a href="#" aria-label="Twitter">🐦</a>
-                        <a href="#" aria-label="YouTube">🎥</a>
+                        <a href="https://www.facebook.com/share/p/1BvbwvV8tb/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">📘</a>
+                        <a href="https://www.instagram.com/p/DavoUECkRQa/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">📸</a>
+                        <a href="https://www.linkedin.com/posts/kumasiheritageleolions_rootedinservice-weserve-lionsinternational-activity-7482509172165636097-Fyr7" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">💼</a>
+                        <a href="https://vt.tiktok.com/ZSX6rECDs/" target="_blank" rel="noopener noreferrer" aria-label="TikTok">🎵</a>
+                        <a href="https://x.com/KsHeritageLions/status/2076749586631106884" target="_blank" rel="noopener noreferrer" aria-label="X">✖️</a>
                     </div>
                 </div>
             </div>
