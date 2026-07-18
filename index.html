@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leo-Lion Club - Leadership, Experience, Opportunity</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Welcome to the Leo-Lion Club website. We empower youth to develop leadership skills and serve the community through environmental, education, and social relief projects. Join us today!">
+    <meta name="keywords" content="Leo-Lion Club, Lions Club International, volunteering, youth leadership, community service, environment, education, food drive">
+    <meta name="author" content="Leo-Lion Club">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Leo-Lion Club - Leadership, Experience, Opportunity">
+    <meta property="og:description" content="Empowering youth to lead and serve. Learn about our projects, view our impact, and join our movement.">
+    <meta property="og:image" content="assets/hero_bg.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Leo-Lion Club - Leadership, Experience, Opportunity">
+    <meta property="twitter:description" content="Empowering youth to lead and serve. Learn about our projects, view our impact, and join our movement.">
+    <meta property="twitter:image" content="assets/hero_bg.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="light-theme">
+    <!-- Navigation Header -->
+    <header class="main-header" id="header">
+        <div class="header-container">
+            <a href="#" class="logo">
+                <span class="logo-icon">🦁</span>
+                <span class="logo-text">LEO<span class="highlight">-LION</span></span>
+            </a>
+            
+            <nav class="nav-menu" id="nav-menu">
+                <ul>
+                    <li><a href="#" class="nav-link active">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#updates" class="nav-link">Updates</a></li>
+                    <li><a href="#projects" class="nav-link">Projects</a></li>
+                    <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                    <li><a href="#donate" class="nav-link">Donate</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-actions">
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle dark/light theme">
+                    <span class="toggle-icon">☀️</span>
+                </button>
+                
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" id="menu-btn" aria-label="Open menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section" id="home">
+            <div class="hero-bg" style="background-image: url('assets/hero_bg.png');"></div>
+            <div class="hero-overlay"></div>
+            <div class="hero-content-wrapper">
+                <div class="hero-content reveal">
+                    <span class="hero-badge">Welcome to Leo-Lion Club</span>
+                    <h1>Leadership. Experience. Opportunity.</h1>
+                    <p>We are a community of passionate youth and mentors dedicated to making a tangible impact through volunteerism and leadership development.</p>
+                    <div class="hero-buttons">
+                        <a href="#join" class="btn btn-primary">Join the Club</a>
+                        <a href="#projects" class="btn btn-outline">Explore Our Work</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Wave Divider -->
+            <div class="wave-container">
+                <svg viewBox="0 -20 1440 320" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="var(--bg-primary)" fill-opacity="1" d="M0,224L48,202.7C96,181,192,139,288,128C384,117,480,139,576,165.3C672,192,768,224,864,224C960,224,1056,192,1152,176C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card reveal">
+                        <div class="stat-number" data-target="150">0</div>
+                        <div class="stat-label">Active Members</div>
+                    </div>
+                    <div class="stat-card reveal">
+                        <div class="stat-number" data-target="50">0</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                    <div class="stat-card reveal">
+                        <div class="stat-number" data-target="10000">0</div>
+                        <div class="stat-label">Volunteer Hours</div>
+                    </div>
+                    <div class="stat-card reveal">
+                        <div class="stat-number" data-target="8500">0</div>
+                        <div class="stat-label">Lives Impacted</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Event Section (Takoradi 2026 Convention Promo) -->
+        <section class="featured-event-section id-anchor" id="featured-event">
+            <div class="container">
+                <div class="event-banner reveal">
+                    <div class="event-details-col">
+                        <span class="event-badge">Featured Event</span>
+                        <h2>Takoradi 2026 Convention</h2>
+                        <p class="event-date">📅 May 29th – 30th, 2026</p>
+                        <p class="event-description">Join us at the annual Leo-District Convention in Takoradi! Connect with community volunteers from across the region, attend leadership masterclasses, and elect next year's board. Early bird registration is open for a limited time.</p>
+                        <div class="event-actions">
+                            <a href="https://example.com/register-takoradi" target="_blank" class="btn btn-primary">Register Early Bird</a>
+                            <a href="#contact" class="btn btn-outline" style="border-color: var(--primary); color: var(--primary);">Inquire More</a>
+                        </div>
+                    </div>
+                    <div class="event-timer-col">
+                        <div class="countdown-container">
+                            <h4>Countdown to Convention</h4>
+                            <div class="countdown-grid">
+                                <div class="countdown-item"><span id="days">00</span><label>Days</label></div>
+                                <div class="countdown-item"><span id="hours">00</span><label>Hrs</label></div>
+                                <div class="countdown-item"><span id="minutes">00</span><label>Min</label></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section class="about-section id-anchor" id="about">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-text-content reveal">
+                        <span class="section-subtitle">Who We Are</span>
+                        <h2>Empowering Tomorrow's Leaders Today</h2>
+                        <p class="lead-text">Sponsored by Lions Clubs International, the Leo Club Program provides youth with an opportunity to serve their communities and build essential leadership skills.</p>
+                        <p>Our Leo-Lion club bridges the energy and creativity of Leo youth with the experience and network of Lions. Together, we identify community needs and execute high-impact service projects.</p>
+                        
+                        <div class="core-values">
+                            <div class="value-item">
+                                <div class="value-icon">🏅</div>
+                                <div class="value-desc">
+                                    <h3>Leadership</h3>
+                                    <p>Lead projects, coordinate activities, and manage teams to build essential life skills.</p>
+                                </div>
+                            </div>
+                            <div class="value-item">
+                                <div class="value-icon">⭐</div>
+                                <div class="value-desc">
+                                    <h3>Experience</h3>
+                                    <p>Learn the value of cooperation and experience the joy of community service firsthand.</p>
+                                </div>
+                            </div>
+                            <div class="value-item">
+                                <div class="value-icon">🤝</div>
+                                <div class="value-desc">
+                                    <h3>Opportunity</h3>
+                                    <p>Connect with a global network of volunteers and discover personal growth paths.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-image-wrapper reveal">
+                        <div class="image-stack">
+                            <div class="image-stack-item image-stack-item-top">
+                                <img src="assets/project_env.png" alt="Environmental Project volunteering">
+                            </div>
+                            <div class="image-stack-item image-stack-item-bottom">
+                                <img src="assets/project_food.png" alt="Food bank volunteering">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- President's Updates Section (Dynamic Firestore Feed) -->
+        <section class="updates-section id-anchor" id="updates">
+            <div class="container">
+                <div class="section-header text-center reveal">
+                    <span class="section-subtitle">President's Desk</span>
+                    <h2>Latest Updates & Messages</h2>
+                    <p class="section-desc">Live messages and announcements directly from our Club President.</p>
+                </div>
+                
+                <div class="updates-feed" id="updates-feed-container">
+                    <!-- Dynamic updates loaded via JS -->
+                    <div class="updates-loading-state">
+                        <p>Fetching active updates from database...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="projects-section id-anchor" id="projects">
+            <div class="container">
+                <div class="section-header text-center reveal">
+                    <span class="section-subtitle">Our Impact</span>
+                    <h2>Focus Areas & Service Projects</h2>
+                    <p class="section-desc">We channel our resources and efforts into three critical areas of community needs.</p>
+                </div>
+                
+                <div class="projects-grid">
+                    <!-- Project 1 -->
+                    <div class="project-card reveal">
+                        <div class="project-image">
+                            <img src="assets/project_env.png" alt="Environmental Service Project">
+                            <span class="project-tag">Environment</span>
+                        </div>
+                        <div class="project-info">
+                            <h3>Green Earth Cleanups</h3>
+                            <p>We host tree planting activities, plastic cleanup drives, and community recycling workshops to protect our natural ecosystem.</p>
+                            <a href="#contact" class="project-link">Get Involved &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="project-card reveal">
+                        <div class="project-image">
+                            <img src="assets/project_food.png" alt="Food security volunteers">
+                            <span class="project-tag">Social Relief</span>
+                        </div>
+                        <div class="project-info">
+                            <h3>Food for Families</h3>
+                            <p>Partnering with regional food shelters, we run donation collection hubs and pack boxes to support households in need.</p>
+                            <a href="#contact" class="project-link">Get Involved &rarr;</a>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="project-card reveal">
+                        <div class="project-image">
+                            <img src="assets/project_edu.png" alt="Tutoring children in community">
+                            <span class="project-tag">Education</span>
+                        </div>
+                        <div class="project-info">
+                            <h3>Future Tutors & Mentors</h3>
+                            <p>Our academic support circles offer free tutoring, literacy support, and digital literacy skills to youth in underfunded areas.</p>
+                            <a href="#contact" class="project-link">Get Involved &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="gallery-section id-anchor" id="gallery">
+            <div class="container">
+                <div class="section-header text-center reveal">
+                    <span class="section-subtitle">Moments in Action</span>
+                    <h2>Service Gallery</h2>
+                    <p class="section-desc">Snapshots of our members making a positive impact in real-time. Click an image to view in detail.</p>
+                </div>
+
+                <div class="gallery-grid reveal">
+                    <div class="gallery-item">
+                        <img src="assets/hero_bg.png" alt="Diverse volunteers holding hands in unity">
+                        <div class="gallery-overlay">
+                            <span>Unity & Community</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="assets/project_env.png" alt="Volunteers planting saplings in park">
+                        <div class="gallery-overlay">
+                            <span>Planting Trees</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="assets/project_food.png" alt="Packing relief meals for families">
+                        <div class="gallery-overlay">
+                            <span>Food Relief Support</span>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="assets/project_edu.png" alt="Tutoring primary school kids in library">
+                        <div class="gallery-overlay">
+                            <span>Reading Club Mentoring</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Section (YouTube Embed) -->
+        <section class="video-section id-anchor" id="videos">
+            <div class="container">
+                <div class="section-header text-center reveal">
+                    <span class="section-subtitle">Watch Us In Action</span>
+                    <h2>Our Journey in Motion</h2>
+                    <p class="section-desc">Take a look at our community efforts, event highlights, and volunteer stories.</p>
+                </div>
+                
+                <div class="video-wrapper reveal">
+                    <div class="video-container">
+                        <!-- Embed YouTube Video Frame -->
+                        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Leo-Lion Club Action Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Join Us Section -->
+        <section class="join-section id-anchor" id="join">
+            <div class="container">
+                <div class="join-content reveal">
+                    <div class="join-text">
+                        <span class="section-subtitle">Be the Change</span>
+                        <h2>Ready to Become a Leo-Lion?</h2>
+                        <p>If you are between the ages of 12 and 30, eager to lead, grow, and serve your local community, we would love to welcome you to our family.</p>
+                        
+                        <div class="join-steps">
+                            <div class="step-card">
+                                <div class="step-number">1</div>
+                                <h4>Express Interest</h4>
+                                <p>Fill out the contact form below with your interests.</p>
+                            </div>
+                            <div class="step-card">
+                                <div class="step-number">2</div>
+                                <h4>Attend a Meeting</h4>
+                                <p>Come as a guest to one of our bi-weekly general assemblies.</p>
+                            </div>
+                            <div class="step-card">
+                                <div class="step-number">3</div>
+                                <h4>Get Inducted</h4>
+                                <p>Receive your certificate, pin, and start leading your first project!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Donations Section (Paystack, Hubtel, MoMo) -->
+        <section class="donations-section id-anchor" id="donate">
+            <div class="container">
+                <div class="donations-card reveal">
+                    <div class="donations-layout">
+                        <div class="donation-header">
+                            <span class="section-subtitle">Support Our Mission</span>
+                            <h2>Make a Difference Today</h2>
+                            <p>Your financial support fuels our community operations. 100% of public donations go directly to funding environmental cleanups, purchasing tutoring kits, and local food distribution drives.</p>
+                        </div>
+                        
+                        <div class="donation-options">
+                            <!-- Gateways channel -->
+                            <div class="donation-channel">
+                                <h4>💳 Secure Online Payment</h4>
+                                <p>Support us online via local payment gateways. Quick and safe.</p>
+                                <div class="gateway-buttons">
+                                    <a href="https://paystack.com" target="_blank" class="btn btn-primary" style="background-color: #3f51b5; border: none; font-size: 0.85rem; padding: 10px 20px;">Donate via Paystack</a>
+                                    <a href="https://hubtel.com" target="_blank" class="btn btn-primary" style="background-color: #fc8019; border: none; font-size: 0.85rem; padding: 10px 20px;">Donate via Hubtel</a>
+                                </div>
+                            </div>
+                            
+                            <!-- MoMo Channel -->
+                            <div class="donation-channel">
+                                <h4>📱 Mobile Money (MoMo)</h4>
+                                <p>Send mobile payments directly to our verified club wallet.</p>
+                                <div class="momo-details">
+                                    <p><strong>Merchant Name:</strong> Leo-Lion Club Central</p>
+                                    <p><strong>Merchant ID / No:</strong> 054 321 0987 (MTN)</p>
+                                    <p><strong>Reference Code:</strong> Club Donation</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section id-anchor" id="contact">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="contact-info reveal">
+                        <span class="section-subtitle">Get In Touch</span>
+                        <h2>We'd Love to Hear From You</h2>
+                        <p>Have questions about membership, projects, or looking to sponsor a community project? Drop us a line!</p>
+                        
+                        <div class="contact-details">
+                            <div class="detail-item">
+                                <span class="detail-icon">📍</span>
+                                <div>
+                                    <h4>Meeting Address</h4>
+                                    <p>Community Hall, 128 Service Ave, City Center</p>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-icon">📅</span>
+                                <div>
+                                    <h4>Meeting Times</h4>
+                                    <p>Every 1st and 3rd Saturday at 4:00 PM</p>
+                                </div>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-icon">✉️</span>
+                                <div>
+                                    <h4>Email Address</h4>
+                                    <p>info@leolionclub.org</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form-wrapper reveal">
+                        <form id="contact-form" class="contact-form" novalidate>
+                            <h3>Send Us a Message</h3>
+                            
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" required placeholder="John Doe">
+                                <span class="error-msg" id="name-error">Please enter your name.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" required placeholder="john@example.com">
+                                <span class="error-msg" id="email-error">Please enter a valid email address.</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="interest">Area of Interest</label>
+                                <select id="interest" name="interest">
+                                    <option value="joining">Joining the Club</option>
+                                    <option value="volunteering">Volunteering for Projects</option>
+                                    <option value="sponsoring">Sponsorship & Donations</option>
+                                    <option value="other">General Inquiry</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" rows="5" required placeholder="Hi there! I am interested in..."></textarea>
+                                <span class="error-msg" id="message-error">Please write a short message.</span>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                            <div class="form-status" id="form-status"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <span class="footer-logo">🦁 LEO-LION</span>
+                    <p>Leadership, Experience, Opportunity. Sponsored by Lions Club International.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#updates">Updates</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#donate">Donate</a></li>
+                    </ul>
+                </div>
+                <div class="footer-socials">
+                    <h4>Follow Us</h4>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Instagram">📸</a>
+                        <a href="#" aria-label="Twitter">🐦</a>
+                        <a href="#" aria-label="YouTube">🎥</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom text-center">
+                <p>&copy; 2026 Leo-Lion Club. All Rights Reserved. Sponsored by Lions Club International.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Gallery Lightbox Modal -->
+    <div id="lightbox" class="lightbox-modal" aria-hidden="true">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightbox-img" src="" alt="Expanded View">
+        <div id="lightbox-caption" class="lightbox-caption"></div>
+    </div>
+
+    <!-- Firebase compatibility SDKs via CDN -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <!-- JS Scripts -->
+    <script src="firebase-config.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
