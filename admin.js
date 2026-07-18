@@ -3,7 +3,7 @@
 // ==========================================
 
 // Ensure config exists
-if (!window.firebaseConfig || window.firebaseConfig.apiKey === "YOUR_API_KEY") {
+if (!window.firebaseConfig || (window.firebaseConfig.apiKey === "YOUR_API_KEY" && !window.firebaseConfig.isDemoMode)) {
     console.error("Firebase config is missing or contains placeholder values. Please update firebase-config.js.");
 }
 
@@ -44,10 +44,12 @@ auth.onAuthStateChanged(user => {
         dashboardView.style.display = 'block';
         adminUserEmail.textContent = user.email;
         loadAdminPosts();
+        showAdminDemoNotice(true);
     } else {
         // User logged out
         loginView.style.display = 'block';
         dashboardView.style.display = 'none';
+        showAdminDemoNotice(false);
     }
 });
 
@@ -328,3 +330,37 @@ formInputs.forEach(input => {
         input.parentElement.classList.remove('invalid');
     });
 });
+
+function showAdminDemoNotice(isLoggedIn) {
+    if (!window.firebaseConfig || !window.firebaseConfig.isDemoMode) return;
+    
+    // Remove existing notices if any
+    const existing = document.querySelectorAll('.admin-demo-notice');
+    existing.forEach(el => el.remove());
+    
+    const notice = document.createElement('div');
+    notice.className = 'admin-demo-notice';
+    notice.style.background = 'rgba(255, 179, 0, 0.08)';
+    notice.style.border = '1px dashed var(--accent-color, #ffb300)';
+    notice.style.color = 'var(--text-color)';
+    notice.style.padding = '15px';
+    notice.style.borderRadius = '8px';
+    notice.style.marginBottom = '20px';
+    notice.style.fontSize = '0.95rem';
+    notice.style.lineHeight = '1.5';
+    
+    if (isLoggedIn) {
+        notice.innerHTML = `
+            <strong>✨ Demo Mode Dashboard Active</strong><br>
+            Posts and image uploads are saved directly to your browser's local storage database. 
+            To deploy live to the cloud, configure your real credentials in <code>firebase-config.js</code>.
+        `;
+        dashboardView.insertBefore(notice, dashboardView.firstChild);
+    } else {
+        notice.innerHTML = `
+            <strong>✨ Demo Mode Active</strong><br>
+            Use <strong>any email and password</strong> to log in and try out the publisher dashboard locally.
+        `;
+        loginView.insertBefore(notice, loginView.firstChild);
+    }
+}

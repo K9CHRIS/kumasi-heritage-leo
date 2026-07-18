@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const updatesContainer = document.getElementById('updates-feed-container');
     let db = null;
 
-    if (window.firebaseConfig && window.firebaseConfig.apiKey !== "YOUR_API_KEY") {
+    if (window.firebaseConfig && (window.firebaseConfig.apiKey !== "YOUR_API_KEY" || window.firebaseConfig.isDemoMode)) {
         try {
             firebase.initializeApp(window.firebaseConfig);
             db = firebase.firestore();
@@ -50,18 +50,41 @@ document.addEventListener('DOMContentLoaded', () => {
         db.collection('posts')
             .orderBy('timestamp', 'desc')
             .onSnapshot((snapshot) => {
-                if (snapshot.empty) {
-                    updatesContainer.innerHTML = `
-                        <div class="updates-empty-state">
-                            <span>📢</span>
-                            <h3>No updates posted yet</h3>
-                            <p>Check back later or log in to the admin panel to post the first update!</p>
-                        </div>
+                updatesContainer.innerHTML = ''; // Clear loading spinner
+
+                if (window.firebaseConfig && window.firebaseConfig.isDemoMode) {
+                    const demoBanner = document.createElement('div');
+                    demoBanner.className = 'firebase-warning-card demo-mode-card';
+                    demoBanner.style.border = '1px dashed var(--accent-color, #ffb300)';
+                    demoBanner.style.background = 'rgba(255, 179, 0, 0.08)';
+                    demoBanner.style.marginBottom = '24px';
+                    demoBanner.style.padding = '15px';
+                    demoBanner.style.borderRadius = '12px';
+                    demoBanner.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.05)';
+                    demoBanner.innerHTML = `
+                        <p style="margin: 0; color: var(--accent-color, #ffb300); font-weight: bold; font-size: 1.15rem; text-align: center;">
+                            ✨ Demo Mode Active (Local Storage Database)
+                        </p>
+                        <p style="margin: 6px 0 0 0; font-size: 0.95rem; text-align: center; color: var(--text-color); opacity: 0.9;">
+                            Updates are saved locally in your browser. 
+                            <a href="admin.html" style="color: var(--accent-color, #ffb300); font-weight: bold; text-decoration: underline;">Go to Admin Panel</a> 
+                            to log in using any email/password and post updates!
+                        </p>
                     `;
-                    return;
+                    updatesContainer.appendChild(demoBanner);
                 }
 
-                updatesContainer.innerHTML = ''; // Clear loading spinner
+                if (snapshot.empty) {
+                    const emptyState = document.createElement('div');
+                    emptyState.className = 'updates-empty-state';
+                    emptyState.innerHTML = `
+                        <span>📢</span>
+                        <h3>No updates posted yet</h3>
+                        <p>Check back later or log in to the admin panel to post the first update!</p>
+                    `;
+                    updatesContainer.appendChild(emptyState);
+                    return;
+                }
                 
                 snapshot.forEach(doc => {
                     const post = doc.data();
