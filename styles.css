@@ -2161,107 +2161,101 @@ h1, h2, h3, h4 {
     }
 }
 
-
 /* ==========================================
-   FLOATING MEMBER LOGIN BUTTON (FAB)
+   FLOATING MEMBER LOGIN BUTTON
    ========================================== */
 
-.member-fab {
-    /* Fixed position — always visible, bottom-right */
+.floating-portal-btn {
     position: fixed;
-    bottom: 28px;
-    right: 28px;
-    z-index: 9999;
-
-    /* Layout */
+    bottom: 24px;
+    right: 24px;
+    height: 56px;
+    min-width: 56px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+    border: 2px solid var(--accent);
+    border-radius: 28px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(0, 51, 102, 0.35);
+    z-index: 1500;
     text-decoration: none;
-
-    /* Pill shape — expands on hover to show label */
-    height: 56px;
-    padding: 0 20px 0 16px;
-    border-radius: 50px;
-
-    /* Colors */
-    background: var(--primary);
-    color: #fff;
-    border: 2.5px solid var(--accent);
-
-    /* Shadow for depth */
-    box-shadow:
-        0 4px 20px rgba(0, 51, 102, 0.35),
-        0 0 0 0 rgba(212, 175, 55, 0.5);
-
-    /* Transitions */
-    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-
-    /* Pulse ring animation */
-    animation: fab-pulse 3s ease-in-out infinite;
+    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    padding: 0 16px;
+    overflow: hidden;
+    animation: portal-pulse 3s infinite;
 }
 
-.member-fab:hover {
-    background: var(--accent);
-    color: var(--primary);
-    transform: translateY(-4px) scale(1.05);
-    box-shadow:
-        0 10px 30px rgba(212, 175, 55, 0.4),
-        0 4px 12px rgba(0, 51, 102, 0.2);
-    animation: none; /* stop pulse on hover */
-}
-
-.fab-icon {
-    font-size: 1.4rem;
-    line-height: 1;
-    flex-shrink: 0;
+.fp-icon {
+    font-size: 1.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: transform 0.3s ease;
 }
 
-.member-fab:hover .fab-icon {
-    transform: rotate(-15deg) scale(1.15);
-}
-
-.fab-label {
-    font-size: 0.88rem;
+.fp-text {
+    color: #ffffff;
     font-weight: 700;
+    font-size: 0.9rem;
     letter-spacing: 0.5px;
-    white-space: nowrap;
-    color: inherit;
-
-    /* Hidden by default, slides in on hover */
     max-width: 0;
     overflow: hidden;
+    white-space: nowrap;
     opacity: 0;
-    transition: max-width 0.35s ease, opacity 0.25s ease;
+    transition: max-width 0.3s ease, margin-right 0.3s ease, opacity 0.25s ease;
+    margin-right: 0;
 }
 
-.member-fab:hover .fab-label {
-    max-width: 120px;
-    opacity: 1;
+/* Hover Expanding Effect (Desktop Only) */
+@media (min-width: 769px) {
+    .floating-portal-btn:hover {
+        transform: translateY(-4px) scale(1.02);
+        box-shadow: 0 12px 30px rgba(0, 51, 102, 0.5);
+        border-color: #ffffff;
+    }
+    
+    .floating-portal-btn:hover .fp-text {
+        max-width: 120px;
+        margin-right: 8px;
+        opacity: 1;
+    }
+
+    .floating-portal-btn:hover .fp-icon {
+        transform: rotate(-12deg);
+    }
 }
 
-/* Collapsed state (icon only) when not hovered */
-.member-fab:not(:hover) {
-    padding: 0 16px;
+/* Pulsing Shadow Animation */
+@keyframes portal-pulse {
+    0% {
+        box-shadow: 0 8px 24px rgba(0, 51, 102, 0.35);
+    }
+    50% {
+        box-shadow: 0 8px 28px rgba(212, 175, 55, 0.45), 0 0 0 6px rgba(212, 175, 55, 0.15);
+    }
+    100% {
+        box-shadow: 0 8px 24px rgba(0, 51, 102, 0.35);
+    }
 }
 
-/* Pulse animation — draws the eye without being annoying */
-@keyframes fab-pulse {
-    0%   { box-shadow: 0 4px 20px rgba(0,51,102,0.3), 0 0 0 0 rgba(212,175,55,0.4); }
-    50%  { box-shadow: 0 4px 20px rgba(0,51,102,0.3), 0 0 0 10px rgba(212,175,55,0); }
-    100% { box-shadow: 0 4px 20px rgba(0,51,102,0.3), 0 0 0 0 rgba(212,175,55,0); }
-}
-
-/* Mobile: slightly smaller, stays in corner */
+/* Mobile responsive constraints */
 @media (max-width: 768px) {
-    .member-fab {
-        bottom: 20px;
-        right: 20px;
+    .floating-portal-btn {
+        bottom: 16px;
+        right: 16px;
         height: 50px;
-        padding: 0 14px;
+        min-width: 50px;
+        width: 50px;
+        border-radius: 25px;
+        padding: 0;
+        justify-content: center;
     }
-    .fab-icon {
-        font-size: 1.3rem;
+    .fp-text {
+        display: none;
+    }
+    .fp-icon {
+        font-size: 1.2rem;
     }
 }
+
