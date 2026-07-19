@@ -1,6 +1,6 @@
 # 🦁 Leo-Lion Club Website with Admin Dashboard
 
-Welcome to your Leo-Lion Club website repository! This is a premium, fully responsive, and interactive website designed for your club. 
+Welcome to the official **Kumasi Heritage Virtual Leo-Lions Club** website repository! Hosted live at **[https://kumasiheritageleolions.org](https://kumasiheritageleolions.org)**.
 
 It is structured with a **modern hybrid architecture**:
 1. **Frontend Hosting (100% Free)**: Powered by **GitHub Pages**.
