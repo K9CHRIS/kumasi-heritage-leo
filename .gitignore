@@ -1,0 +1,15 @@
+# OS generated files
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# IDE/Editor folders
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.agent/
+.agents/
