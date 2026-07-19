@@ -11,10 +11,14 @@ const firebaseConfig = {
     appId: "YOUR_APP_ID"
 };
 
-// Always run in demo mode (localStorage-backed mock) until real Firebase credentials are set.
-// This prevents the app from hitting real Firebase endpoints and avoids exposing API keys.
-firebaseConfig.isDemoMode = true;
-setupFirebaseMock();
+// Detect if real credentials have been injected (for production)
+if (firebaseConfig.apiKey && firebaseConfig.apiKey !== "YOUR_API_KEY") {
+    firebaseConfig.isDemoMode = false;
+    console.log("Firebase is running in Production Mode (Connected to Live Database).");
+} else {
+    firebaseConfig.isDemoMode = true;
+    setupFirebaseMock();
+}
 
 // Expose config globally so it can be accessed by other files (app.js and admin.js)
 if (typeof window !== 'undefined') {
