@@ -12,7 +12,7 @@ const firebaseConfig = {
 };
 
 // Detect if real credentials have been injected (for production)
-if (firebaseConfig.apiKey && firebaseConfig.apiKey !== "AIzaSyA0DOl14d6F54fQWfJU5bWHcNM3rivomKQ") {
+if (firebaseConfig.apiKey && !firebaseConfig.apiKey.startsWith("YOUR_")) {
     firebaseConfig.isDemoMode = false;
     console.log("Firebase is running in Production Mode (Connected to Live Database).");
 } else {
