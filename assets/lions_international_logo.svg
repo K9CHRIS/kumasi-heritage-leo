@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <circle cx="250" cy="250" r="240" fill="#003366" stroke="#D4AF37" stroke-width="12"/>
+  <circle cx="250" cy="250" r="195" fill="none" stroke="#FFFFFF" stroke-width="6"/>
+  <!-- Top Banner Text Background -->
+  <path d="M 90,200 A 180,180 0 0,1 410,200 L 370,225 A 135,135 0 0,0 130,225 Z" fill="#D4AF37"/>
+  <!-- Bottom Banner Text Background -->
+  <path d="M 90,300 A 180,180 0 0,0 410,300 L 370,275 A 135,135 0 0,1 130,275 Z" fill="#D4AF37"/>
+  <!-- Central Emblem Shield/Circle -->
+  <circle cx="250" cy="250" r="130" fill="#002244" stroke="#D4AF37" stroke-width="8"/>
+  <!-- Letter L -->
+  <text x="250" y="300" font-family="'Outfit', 'Arial Black', sans-serif" font-size="160" font-weight="900" fill="#D4AF37" text-anchor="middle">L</text>
+  <!-- Text LIONS -->
+  <text x="250" y="105" font-family="'Outfit', 'Arial Black', sans-serif" font-size="44" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="4">LIONS</text>
+  <!-- Text INTERNATIONAL -->
+  <text x="250" y="420" font-family="'Outfit', 'Arial Black', sans-serif" font-size="30" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="3">INTERNATIONAL</text>
+  <!-- Lion Profiles Representation Left & Right -->
+  <path d="M 120,250 Q 80,220 70,250 Q 80,280 120,250 Z" fill="#D4AF37"/>
+  <path d="M 380,250 Q 420,220 430,250 Q 420,280 380,250 Z" fill="#D4AF37"/>
+</svg>
