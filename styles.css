@@ -142,10 +142,50 @@ h1, h2, h3, h4 {
     width: 100%;
 }
 
+/* Affiliation Top Bar */
+.affiliation-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1100;
+    background: linear-gradient(90deg, var(--primary-dark) 0%, var(--primary) 60%, #0a4a8f 100%);
+    border-bottom: 2px solid var(--accent);
+    padding: 6px 24px;
+}
+
+.affiliation-bar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.affiliation-label {
+    color: rgba(255,255,255,0.75);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.affiliation-district-logo {
+    height: 36px;
+    width: auto;
+    object-fit: contain;
+    /* Slight background for legibility on dark bar */
+    background: white;
+    border-radius: 4px;
+    padding: 2px 10px;
+}
+
 /* --- Navigation Header --- */
 .main-header {
     position: fixed;
-    top: 0;
+    top: 50px; /* offset for affiliation bar */
     left: 0;
     width: 100%;
     z-index: 1000;
@@ -179,18 +219,40 @@ h1, h2, h3, h4 {
     display: flex;
     align-items: center;
     gap: 10px;
+    text-decoration: none;
 }
 
-.logo-icon {
-    font-size: 1.8rem;
+.logo-img {
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-img {
+    transform: scale(1.06) rotate(-2deg);
 }
 
 .logo-text {
     font-family: var(--font-heading);
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    line-height: 1;
+}
+
+.logo-main {
     font-weight: 800;
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     letter-spacing: 1px;
     color: var(--primary);
+}
+
+.logo-sub {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.9;
 }
 
 .nav-menu ul {
@@ -257,7 +319,7 @@ h1, h2, h3, h4 {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 120px 0;
+    padding: 160px 0 120px; /* Extra top for affiliation bar + header */
     overflow: hidden;
 }
 
@@ -1952,3 +2014,95 @@ h1, h2, h3, h4 {
     }
 }
 
+
+/* ==========================================
+   AFFILIATION LOGOS STRIP (Post-Hero)
+   ========================================== */
+
+.affiliation-strip {
+    background: #fff;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 3px solid var(--accent);
+    padding: 32px 0 28px;
+}
+
+.affiliation-strip-label {
+    text-align: center;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    opacity: 0.7;
+}
+
+.affiliation-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.affil-logo-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.3s ease;
+}
+
+.affil-logo-item:hover {
+    transform: scale(1.04);
+}
+
+.affil-logo-item img {
+    height: 90px;
+    width: auto;
+    object-fit: contain;
+}
+
+.affil-logo-district img {
+    height: 70px; /* District logo is wider, balance it */
+}
+
+.affil-logo-item span {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    color: var(--primary);
+    letter-spacing: 0.5px;
+    line-height: 1.4;
+}
+
+.affil-divider {
+    width: 1px;
+    height: 70px;
+    background: linear-gradient(to bottom, transparent, var(--border-color), transparent);
+}
+
+/* Mobile: hide affiliation bar label text, shrink logo */
+@media (max-width: 768px) {
+    .affiliation-label {
+        display: none;
+    }
+    .affiliation-district-logo {
+        height: 28px;
+    }
+    .affiliation-bar {
+        padding: 4px 12px;
+    }
+    .main-header {
+        top: 40px;
+    }
+    .affil-logo-item img {
+        height: 65px;
+    }
+    .affil-logo-district img {
+        height: 50px;
+    }
+    .affil-divider {
+        height: 50px;
+    }
+}
