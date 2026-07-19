@@ -231,8 +231,10 @@ function loadAdminPosts() {
                 const data = doc.data();
                 const id = doc.id;
                 
-                const thumb = data.imageUrl || 'assets/hero_bg.png'; // Fallback
-                const dateText = data.dateString || 'Recently';
+                const thumb = escapeHTML(data.imageUrl || 'assets/hero_bg.png'); // Fallback
+                const dateText = escapeHTML(data.dateString || 'Recently');
+                const safeId = escapeHTML(id);
+                const safeImageUrl = escapeHTML(data.imageUrl || '');
                 
                 const postRow = document.createElement('div');
                 postRow.className = 'post-row';
@@ -244,7 +246,7 @@ function loadAdminPosts() {
                             <span>${dateText}</span>
                         </div>
                     </div>
-                    <button class="btn-delete" data-id="${id}" data-image="${data.imageUrl || ''}">Delete</button>
+                    <button class="btn-delete" data-id="${safeId}" data-image="${safeImageUrl}">Delete</button>
                 `;
                 
                 // Add Delete Event Listener
@@ -259,7 +261,7 @@ function loadAdminPosts() {
         })
         .catch(error => {
             console.error("Error loading posts: ", error);
-            postsListContainer.innerHTML = `<p style="text-align: center; color: #ef4444; padding: 20px;">Failed to load posts: ${error.message}</p>`;
+            postsListContainer.innerHTML = `<p style="text-align: center; color: #ef4444; padding: 20px;">Failed to load posts: ${escapeHTML(error.message)}</p>`;
         });
 }
 

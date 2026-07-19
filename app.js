@@ -90,9 +90,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     const post = doc.data();
                     const title = escapeHTML(post.title);
                     const content = escapeHTML(post.content);
-                    const imageUrl = post.imageUrl || 'assets/hero_bg.png'; // Fallback
-                    const date = post.dateString || 'Recently';
-                    const author = post.author ? post.author.split('@')[0] : 'Admin';
+                    const imageUrl = escapeHTML(post.imageUrl || 'assets/hero_bg.png'); // Fallback
+                    const date = escapeHTML(post.dateString || 'Recently');
+                    const author = escapeHTML(post.author ? post.author.split('@')[0] : 'Admin');
                     
                     const updateCard = document.createElement('div');
                     updateCard.className = 'update-card reveal active'; // Visible immediately
@@ -112,12 +112,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     updateCard.querySelector('.update-card-img').addEventListener('click', () => {
                         openLightboxModal(imageUrl, title);
                     });
-
+ 
                     updatesContainer.appendChild(updateCard);
                 });
             }, error => {
                 console.error("Firestore listen failed: ", error);
-                showFirebaseWarning(`Error loading data: ${error.message}. Check your Firestore rules.`);
+                showFirebaseWarning(`Error loading data: ${escapeHTML(error.message)}. Check your Firestore rules.`);
             });
     }
 
@@ -155,36 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateCountdown, 1000);
     updateCountdown(); // Run immediately
 
-    // ==========================================
-    // 3. Theme Toggle (Light / Dark)
-    // ==========================================
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    const toggleIcon = themeToggleBtn.querySelector('.toggle-icon');
-    const body = document.body;
-
-    const savedTheme = localStorage.getItem('theme') || 'light-theme';
-    body.className = savedTheme;
-    updateThemeIcon(savedTheme);
-
-    themeToggleBtn.addEventListener('click', () => {
-        if (body.classList.contains('light-theme')) {
-            body.classList.replace('light-theme', 'dark-theme');
-            localStorage.setItem('theme', 'dark-theme');
-            updateThemeIcon('dark-theme');
-        } else {
-            body.classList.replace('dark-theme', 'light-theme');
-            localStorage.setItem('theme', 'light-theme');
-            updateThemeIcon('light-theme');
-        }
-    });
-
-    function updateThemeIcon(theme) {
-        if (theme === 'dark-theme') {
-            toggleIcon.textContent = '🌙';
-        } else {
-            toggleIcon.textContent = '☀️';
-        }
-    }
+    // Force light theme and clean up local storage overrides
+    document.body.className = 'light-theme';
+    localStorage.removeItem('theme');
 
     // ==========================================
     // 4. Sticky Header & Active Navigation Link
