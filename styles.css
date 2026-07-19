@@ -1038,46 +1038,29 @@ h1, h2, h3, h4 {
 
 .social-icons {
     display: flex;
-    gap: 12px;
+    gap: 16px;
+    align-items: center;
 }
 
 .social-icons a {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    background-color: rgba(255, 255, 255, 0.15);
-    color: #ffffff;
-    border-radius: 50%;
-    transition: transform 0.3s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.3s ease, filter 0.3s ease;
-}
-
-.social-icons a.facebook {
-    background-color: #1877F2;
-}
-
-.social-icons a.instagram {
-    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeB 90%);
-}
-
-.social-icons a.linkedin {
-    background-color: #0A66C2;
-}
-
-.social-icons a.tiktok {
-    background-color: #000000;
-}
-
-.social-icons a.x-twitter {
-    background-color: #000000;
+    width: auto;
+    height: auto;
+    background-color: transparent !important;
+    background: none !important;
+    color: #F27272 !important; /* Premium coral color matching reference */
+    border-radius: 0;
+    padding: 6px;
+    transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.25s ease, opacity 0.25s ease;
 }
 
 .social-icons a:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-    filter: brightness(1.2);
-    color: #ffffff;
+    transform: translateY(-2px) scale(1.18);
+    color: #FF8E8E !important; /* Lighter coral highlight on hover */
+    box-shadow: none !important;
+    filter: none !important;
 }
 
 .footer-bottom {
