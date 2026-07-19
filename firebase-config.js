@@ -3,16 +3,16 @@
 // The app currently runs in Demo Mode using localStorage for all member/admin data.
 // To connect to a live Firebase backend, set isDemoMode to false and add real credentials.
 const firebaseConfig = {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: ""
+    apiKey: "AIzaSyA0DOl14d6F54fQWfJU5bWHcNM3rivomKQ",
+    authDomain: "kumasi-heritage-virtual-llc.firebaseapp.com",
+    projectId: "kumasi-heritage-virtual-llc",
+    storageBucket: "kumasi-heritage-virtual-llc.firebasestorage.app",
+    messagingSenderId: "582168305638",
+    appId: "1:582168305638:web:96a31ddd02b77d6e998027"
 };
 
 // Detect if real credentials have been injected (for production)
-if (firebaseConfig.apiKey && firebaseConfig.apiKey !== "") {
+if (firebaseConfig.apiKey && firebaseConfig.apiKey !== "AIzaSyA0DOl14d6F54fQWfJU5bWHcNM3rivomKQ") {
     firebaseConfig.isDemoMode = false;
     console.log("Firebase is running in Production Mode (Connected to Live Database).");
 } else {

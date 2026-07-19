@@ -2095,18 +2095,22 @@ h1, h2, h3, h4 {
 }
 
 .affil-logo-item img {
-    height: 90px;
+    height: 115px;
     width: auto;
     object-fit: contain;
 }
 
 .affil-logo-district img {
-    height: 70px; /* District logo is wider, balance it */
+    height: 95px; /* District logo is wider, balance it */
+}
+
+.affil-logo-lci {
+    height: 115px;
 }
 
 .affil-logo-item span {
-    font-size: 0.75rem;
-    font-weight: 600;
+    font-size: 0.8rem;
+    font-weight: 700;
     text-align: center;
     color: var(--primary);
     letter-spacing: 0.5px;
@@ -2115,7 +2119,7 @@ h1, h2, h3, h4 {
 
 .affil-divider {
     width: 1px;
-    height: 70px;
+    height: 90px;
     background: linear-gradient(to bottom, transparent, var(--border-color), transparent);
 }
 
