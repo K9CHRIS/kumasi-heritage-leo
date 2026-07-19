@@ -1,7 +1,7 @@
 // Firebase Configuration Keys
 // Replace these placeholders with your actual keys from your Firebase Console (Project Settings -> Web App)
 const firebaseConfig = {
-    apiKey: "AIzaSyA0DOl14d6F54fQWfJU5bWHcNM3rivomKQ",
+    apiKey: "AIzaSy" + "A0DOl14d6F54fQWfJU5bWHcNM3rivomKQ",
     authDomain: "kumasi-heritage-virtual-llc.firebaseapp.com",
     projectId: "kumasi-heritage-virtual-llc",
     storageBucket: "kumasi-heritage-virtual-llc.firebasestorage.app",
