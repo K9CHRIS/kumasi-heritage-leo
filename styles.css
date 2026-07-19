@@ -2160,3 +2160,108 @@ h1, h2, h3, h4 {
         height: 50px;
     }
 }
+
+
+/* ==========================================
+   FLOATING MEMBER LOGIN BUTTON (FAB)
+   ========================================== */
+
+.member-fab {
+    /* Fixed position — always visible, bottom-right */
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 9999;
+
+    /* Layout */
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+
+    /* Pill shape — expands on hover to show label */
+    height: 56px;
+    padding: 0 20px 0 16px;
+    border-radius: 50px;
+
+    /* Colors */
+    background: var(--primary);
+    color: #fff;
+    border: 2.5px solid var(--accent);
+
+    /* Shadow for depth */
+    box-shadow:
+        0 4px 20px rgba(0, 51, 102, 0.35),
+        0 0 0 0 rgba(212, 175, 55, 0.5);
+
+    /* Transitions */
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* Pulse ring animation */
+    animation: fab-pulse 3s ease-in-out infinite;
+}
+
+.member-fab:hover {
+    background: var(--accent);
+    color: var(--primary);
+    transform: translateY(-4px) scale(1.05);
+    box-shadow:
+        0 10px 30px rgba(212, 175, 55, 0.4),
+        0 4px 12px rgba(0, 51, 102, 0.2);
+    animation: none; /* stop pulse on hover */
+}
+
+.fab-icon {
+    font-size: 1.4rem;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.member-fab:hover .fab-icon {
+    transform: rotate(-15deg) scale(1.15);
+}
+
+.fab-label {
+    font-size: 0.88rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    color: inherit;
+
+    /* Hidden by default, slides in on hover */
+    max-width: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-width 0.35s ease, opacity 0.25s ease;
+}
+
+.member-fab:hover .fab-label {
+    max-width: 120px;
+    opacity: 1;
+}
+
+/* Collapsed state (icon only) when not hovered */
+.member-fab:not(:hover) {
+    padding: 0 16px;
+}
+
+/* Pulse animation — draws the eye without being annoying */
+@keyframes fab-pulse {
+    0%   { box-shadow: 0 4px 20px rgba(0,51,102,0.3), 0 0 0 0 rgba(212,175,55,0.4); }
+    50%  { box-shadow: 0 4px 20px rgba(0,51,102,0.3), 0 0 0 10px rgba(212,175,55,0); }
+    100% { box-shadow: 0 4px 20px rgba(0,51,102,0.3), 0 0 0 0 rgba(212,175,55,0); }
+}
+
+/* Mobile: slightly smaller, stays in corner */
+@media (max-width: 768px) {
+    .member-fab {
+        bottom: 20px;
+        right: 20px;
+        height: 50px;
+        padding: 0 14px;
+    }
+    .fab-icon {
+        font-size: 1.3rem;
+    }
+}
