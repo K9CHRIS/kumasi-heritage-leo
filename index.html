@@ -64,11 +64,14 @@
                     <li><a href="#gallery" class="nav-link">Gallery</a></li>
                     <li><a href="#donate" class="nav-link">Donate</a></li>
                     <li><a href="#contact" class="nav-link">Contact</a></li>
-                    <li><a href="portal.html" class="nav-link" style="color: var(--accent) !important; font-weight: 600;">Member Portal 🔑</a></li>
+                    <!-- Member Login inside mobile drawer only -->
+                    <li class="mobile-only-nav-item"><a href="portal.html" class="nav-link" style="color: var(--primary); font-weight: 700;">🔑 Member Login</a></li>
                 </ul>
             </nav>
 
             <div class="header-actions">
+                <!-- Member Portal CTA Button -->
+                <a href="portal.html" class="portal-btn" id="portal-nav-btn">🔑 Member Login</a>
                 <!-- Mobile Menu Button -->
                 <button class="mobile-menu-btn" id="menu-btn" aria-label="Open menu">
                     <span class="bar"></span>

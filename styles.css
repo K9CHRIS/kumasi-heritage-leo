@@ -255,17 +255,23 @@ h1, h2, h3, h4 {
     opacity: 0.9;
 }
 
+/* Desktop: hide Member Login from nav list (it's in the portal-btn instead) */
+.mobile-only-nav-item {
+    display: none;
+}
+
 .nav-menu ul {
     display: flex;
-    gap: 32px;
+    gap: 20px; /* tightened from 32px to fit all links */
 }
 
 .nav-link {
     font-weight: 500;
-    font-size: 0.95rem;
+    font-size: 0.88rem; /* slightly smaller to fit all nav items */
     position: relative;
     padding: 6px 0;
     color: var(--text-main);
+    white-space: nowrap;
 }
 
 .nav-link:hover, .nav-link.active {
@@ -287,10 +293,37 @@ h1, h2, h3, h4 {
     width: 100%;
 }
 
+/* Member Login Portal Button */
+.portal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: var(--primary);
+    color: #fff !important;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 50px;
+    border: 2px solid var(--accent);
+    white-space: nowrap;
+    transition: all 0.25s ease;
+    letter-spacing: 0.3px;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.portal-btn:hover {
+    background: var(--accent);
+    color: var(--primary) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(212, 175, 55, 0.35);
+}
+
 .header-actions {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 12px;
+    flex-shrink: 0;
 }
 
 
@@ -1518,6 +1551,18 @@ h1, h2, h3, h4 {
         display: flex;
         z-index: 1100;
     }
+
+    /* On mobile, show only the icon in the portal button to save space */
+    .portal-btn {
+        padding: 8px 12px;
+        font-size: 0;  /* hide text */
+        letter-spacing: 0;
+        gap: 0;
+    }
+    .portal-btn::before {
+        content: '🔑';
+        font-size: 1.1rem;
+    }
     
     .nav-menu {
         position: fixed;
@@ -1527,9 +1572,10 @@ h1, h2, h3, h4 {
         height: 100vh;
         background-color: var(--bg-primary);
         box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
-        padding: 120px 40px;
+        padding: 120px 40px 40px;
         z-index: 1050;
         transition: var(--transition);
+        overflow-y: auto;
     }
 
     .nav-menu.active {
@@ -1543,6 +1589,14 @@ h1, h2, h3, h4 {
 
     .nav-link {
         font-size: 1.2rem;
+    }
+
+    /* Add Member Login link inside mobile menu too */
+    .mobile-only-nav-item {
+        display: list-item;
+        border-top: 1px solid var(--border-color);
+        padding-top: 16px;
+        margin-top: 4px;
     }
 
     /* Menu open animation for burger icon */
