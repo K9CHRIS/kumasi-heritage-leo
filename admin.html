@@ -276,48 +276,148 @@
                     <button id="logout-btn" class="btn btn-secondary" style="padding: 8px 20px;">Log Out</button>
                 </div>
 
-                <div class="dashboard-grid">
-                    
-                    <!-- Left: Create Post Card -->
-                    <div class="dashboard-card">
-                        <h3>Publish President's Update</h3>
-                        
-                        <form id="post-form" novalidate>
-                            <div class="form-group">
-                                <label for="post-title">Update Title</label>
-                                <input type="text" id="post-title" required placeholder="e.g., Beach Cleanup Accomplishments!">
-                                <span class="error-msg">Please enter a title for the update.</span>
-                            </div>
+                <!-- Tab Switching Navigation -->
+                <div class="admin-tabs">
+                    <button class="tab-btn active" data-tab="tab-updates">Manage Updates</button>
+                    <button class="tab-btn" data-tab="tab-members">Manage Members & Dues</button>
+                </div>
 
-                            <div class="form-group">
-                                <label for="post-image">Upload Photo (Optional)</label>
-                                <input type="file" id="post-image" accept="image/*">
-                                <div class="image-preview-container">
-                                    <img id="image-preview" class="image-preview" src="" alt="Thumbnail preview">
-                                    <span id="preview-placeholder" style="font-size: 0.85rem; color: var(--text-muted);">No image selected (Uses default if empty)</span>
+                <!-- Tab 1: Updates -->
+                <div id="tab-updates" class="tab-panel active">
+                    <div class="dashboard-grid">
+                        <!-- Left: Create Post Card -->
+                        <div class="dashboard-card">
+                            <h3>Publish President's Update</h3>
+                            <form id="post-form" novalidate>
+                                <div class="form-group">
+                                    <label for="post-title">Update Title</label>
+                                    <input type="text" id="post-title" required placeholder="e.g., Beach Cleanup Accomplishments!">
+                                    <span class="error-msg">Please enter a title for the update.</span>
                                 </div>
+                                <div class="form-group">
+                                    <label for="post-image">Upload Photo (Optional)</label>
+                                    <input type="file" id="post-image" accept="image/*">
+                                    <div class="image-preview-container">
+                                        <img id="image-preview" class="image-preview" src="" alt="Thumbnail preview">
+                                        <span id="preview-placeholder" style="font-size: 0.85rem; color: var(--text-muted);">No image selected (Uses default if empty)</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="post-content">Message / Update Details</label>
+                                    <textarea id="post-content" rows="6" required placeholder="Write details here..."></textarea>
+                                    <span class="error-msg">Please enter update text details.</span>
+                                </div>
+                                <button type="submit" id="submit-post-btn" class="btn btn-primary btn-block">Publish Update</button>
+                                <div class="form-status" id="post-status"></div>
+                            </form>
+                        </div>
+
+                        <!-- Right: Manage Posts Card -->
+                        <div class="dashboard-card">
+                            <h3>Manage Active Updates</h3>
+                            <div class="posts-list" id="posts-list-container">
+                                <p style="text-align: center; color: var(--text-muted);">Fetching updates...</p>
                             </div>
-
-                            <div class="form-group">
-                                <label for="post-content">Message / Update Details</label>
-                                <textarea id="post-content" rows="6" required placeholder="Write details here..."></textarea>
-                                <span class="error-msg">Please enter update text details.</span>
-                            </div>
-
-                            <button type="submit" id="submit-post-btn" class="btn btn-primary btn-block">Publish Update</button>
-                            <div class="form-status" id="post-status"></div>
-                        </form>
-                    </div>
-
-                    <!-- Right: Manage Posts Card -->
-                    <div class="dashboard-card">
-                        <h3>Manage Active Updates</h3>
-                        <div class="posts-list" id="posts-list-container">
-                            <!-- Spinner/Dynamic list rows inserted here -->
-                            <p style="text-align: center; color: var(--text-muted);">Fetching updates...</p>
                         </div>
                     </div>
+                </div>
 
+                <!-- Tab 2: Members & Invoices -->
+                <div id="tab-members" class="tab-panel">
+                    <div class="dashboard-grid">
+                        <!-- Left: Register/Edit Member Form -->
+                        <div class="dashboard-card">
+                            <h3>Register / Edit Member</h3>
+                            <form id="member-form" novalidate>
+                                <div class="form-group">
+                                    <label for="member-email">Email Address</label>
+                                    <input type="email" id="member-email" required placeholder="e.g., klu@leolion.org">
+                                    <span class="error-msg">Please enter a valid member email.</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="member-name">Full Name</label>
+                                    <input type="text" id="member-name" required placeholder="e.g., Klu Evans Kwesi">
+                                    <span class="error-msg">Please enter member's name.</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="member-id">Member ID</label>
+                                    <input type="text" id="member-id" required placeholder="e.g., KHVLLC-024">
+                                    <span class="error-msg">Please enter a Member ID.</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="member-joined">Joined Date (Month/Year)</label>
+                                    <input type="text" id="member-joined" placeholder="e.g., Sept 2025">
+                                </div>
+                                <div class="form-group">
+                                    <label for="member-dues-status">Dues Status</label>
+                                    <select id="member-dues-status">
+                                        <option value="Paid">Paid</option>
+                                        <option value="Pending" selected>Pending</option>
+                                        <option value="Overdue">Overdue</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="member-dues-amount">Outstanding Dues Amount</label>
+                                    <input type="text" id="member-dues-amount" placeholder="e.g., GH¢ 150.00" value="GH¢ 0.00">
+                                </div>
+                                <div class="form-group">
+                                    <label for="member-due-date">Next Dues Due Date</label>
+                                    <input type="text" id="member-due-date" placeholder="e.g., September 1, 2026">
+                                </div>
+                                <button type="submit" id="submit-member-btn" class="btn btn-primary btn-block">Save Member Profile</button>
+                                <div class="form-status" id="member-status"></div>
+                            </form>
+                        </div>
+
+                        <!-- Right: Issue Invoice Card & Members List -->
+                        <div style="display: flex; flex-direction: column; gap: 30px;">
+                            <!-- Issue Invoice Form -->
+                            <div class="dashboard-card" style="width: 100%;">
+                                <h3>Issue Member Invoice</h3>
+                                <form id="invoice-form" novalidate>
+                                    <div class="form-group">
+                                        <label for="invoice-member-select">Select Member</label>
+                                        <select id="invoice-member-select" required>
+                                            <option value="" disabled selected>Select a member...</option>
+                                        </select>
+                                        <span class="error-msg">Please select a member.</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="invoice-id">Invoice Number</label>
+                                        <input type="text" id="invoice-id" required placeholder="e.g., INV-2026-005">
+                                        <span class="error-msg">Please enter an invoice ID.</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="invoice-desc">Description</label>
+                                        <input type="text" id="invoice-desc" required placeholder="e.g., Annual Dues 2026/2027">
+                                        <span class="error-msg">Please enter a description.</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="invoice-amount">Invoice Amount</label>
+                                        <input type="text" id="invoice-amount" required placeholder="e.g., GH¢ 150.00">
+                                        <span class="error-msg">Please enter invoice amount.</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="invoice-status">Invoice Status</label>
+                                        <select id="invoice-status">
+                                            <option value="Unpaid" selected>Unpaid</option>
+                                            <option value="Paid">Paid</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" id="submit-invoice-btn" class="btn btn-primary btn-block">Issue Invoice</button>
+                                    <div class="form-status" id="invoice-status-display"></div>
+                                </form>
+                            </div>
+
+                            <!-- Registered Members List -->
+                            <div class="dashboard-card" style="width: 100%;">
+                                <h3>Registered Members</h3>
+                                <div class="posts-list" id="members-list-container" style="max-height: 250px;">
+                                    <p style="text-align: center; color: var(--text-muted);">Fetching members...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>

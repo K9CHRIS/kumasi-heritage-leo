@@ -366,3 +366,314 @@ function showAdminDemoNotice(isLoggedIn) {
         loginView.insertBefore(notice, loginView.firstChild);
     }
 }
+
+// ==========================================
+// 6. Admin Member Portal Tab Logic
+// ==========================================
+
+// Tabs Switching
+const tabButtons = document.querySelectorAll('.tab-btn');
+const tabPanels = document.querySelectorAll('.tab-panel');
+
+tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const targetTab = btn.getAttribute('data-tab');
+        
+        tabButtons.forEach(b => b.classList.remove('active'));
+        tabPanels.forEach(p => p.classList.remove('active'));
+        
+        btn.classList.add('active');
+        const targetPanel = document.getElementById(targetTab);
+        if (targetPanel) targetPanel.classList.add('active');
+        
+        if (targetTab === 'tab-members') {
+            loadMembers();
+        }
+    });
+});
+
+// Member Management Variables Selection
+const memberForm = document.getElementById('member-form');
+const memberEmail = document.getElementById('member-email');
+const memberName = document.getElementById('member-name');
+const memberIdInput = document.getElementById('member-id');
+const memberJoined = document.getElementById('member-joined');
+const memberDuesStatus = document.getElementById('member-dues-status');
+const memberDuesAmount = document.getElementById('member-dues-amount');
+const memberDueDate = document.getElementById('member-due-date');
+const memberStatus = document.getElementById('member-status');
+const submitMemberBtn = document.getElementById('submit-member-btn');
+
+const invoiceForm = document.getElementById('invoice-form');
+const invoiceMemberSelect = document.getElementById('invoice-member-select');
+const invoiceId = document.getElementById('invoice-id');
+const invoiceDesc = document.getElementById('invoice-desc');
+const invoiceAmount = document.getElementById('invoice-amount');
+const invoiceStatusSelect = document.getElementById('invoice-status');
+const invoiceStatusDisplay = document.getElementById('invoice-status-display');
+const submitInvoiceBtn = document.getElementById('submit-invoice-btn');
+
+const membersListContainer = document.getElementById('members-list-container');
+
+// Load and Render Members
+let registeredMembersList = [];
+
+function loadMembers() {
+    membersListContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted);">Fetching members...</p>';
+    invoiceMemberSelect.innerHTML = '<option value="" disabled selected>Select a member...</option>';
+    
+    db.collection('members').get()
+        .then(snapshot => {
+            registeredMembersList = [];
+            membersListContainer.innerHTML = '';
+            
+            if (snapshot.empty) {
+                membersListContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted);">No members registered yet.</p>';
+                return;
+            }
+            
+            snapshot.forEach(doc => {
+                const member = doc.data();
+                registeredMembersList.push(member);
+                
+                // Add option to dropdown
+                const opt = document.createElement('option');
+                opt.value = member.email;
+                opt.textContent = `${member.name} (${member.memberId})`;
+                invoiceMemberSelect.appendChild(opt);
+                
+                // Render list item
+                const mRow = document.createElement('div');
+                mRow.className = 'post-row';
+                mRow.style.padding = '12px 15px';
+                mRow.style.borderBottom = '1px solid var(--border-color)';
+                mRow.style.cursor = 'pointer';
+                mRow.style.display = 'flex';
+                mRow.style.justifyContent = 'space-between';
+                mRow.style.alignItems = 'center';
+                
+                const statusBadge = (member.duesStatus || 'Pending').toLowerCase() === 'paid' ? 'badge-paid' : 'badge-unpaid';
+                
+                mRow.innerHTML = `
+                    <div>
+                        <strong style="font-size: 0.95rem; display: block; color: var(--primary);">${escapeHTML(member.name)}</strong>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">${escapeHTML(member.email)} | ${escapeHTML(member.memberId)}</span>
+                    </div>
+                    <div style="text-align: right;">
+                        <span class="badge ${statusBadge}" style="font-size: 0.75rem; padding: 2px 8px; margin-bottom: 4px; display: inline-block;">${escapeHTML(member.duesStatus)}</span>
+                        <strong style="display: block; font-size: 0.9rem; color: var(--text-main);">${escapeHTML(member.duesAmount)}</strong>
+                    </div>
+                `;
+                
+                // Clicking populates the Edit form
+                mRow.addEventListener('click', () => {
+                    memberEmail.value = member.email;
+                    memberName.value = member.name;
+                    memberIdInput.value = member.memberId;
+                    memberJoined.value = member.joinedDate || '';
+                    memberDuesStatus.value = member.duesStatus || 'Pending';
+                    memberDuesAmount.value = member.duesAmount || 'GH¢ 0.00';
+                    memberDueDate.value = member.dueDate || '';
+                    
+                    showStatus(memberStatus, 'Editing existing member profile.', 'success');
+                });
+                
+                membersListContainer.appendChild(mRow);
+            });
+        })
+        .catch(err => {
+            console.error("Error loading members: ", err);
+            membersListContainer.innerHTML = `<p style="text-align: center; color: #ef4444;">Error: ${escapeHTML(err.message)}</p>`;
+        });
+}
+
+// Register / Save Member Form Submission
+memberForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const email = memberEmail.value.trim().toLowerCase();
+    const name = memberName.value.trim();
+    const mid = memberIdInput.value.trim();
+    const joined = memberJoined.value.trim();
+    const duesStatus = memberDuesStatus.value;
+    const duesAmountVal = memberDuesAmount.value.trim();
+    const dueDateVal = memberDueDate.value.trim();
+    
+    showStatus(memberStatus, '', 'clear');
+    
+    let isValid = true;
+    if (email === '') {
+        memberEmail.parentElement.classList.add('invalid');
+        isValid = false;
+    } else {
+        memberEmail.parentElement.classList.remove('invalid');
+    }
+    
+    if (name === '') {
+        memberName.parentElement.classList.add('invalid');
+        isValid = false;
+    } else {
+        memberName.parentElement.classList.remove('invalid');
+    }
+    
+    if (mid === '') {
+        memberIdInput.parentElement.classList.add('invalid');
+        isValid = false;
+    } else {
+        memberIdInput.parentElement.classList.remove('invalid');
+    }
+    
+    if (isValid) {
+        submitMemberBtn.disabled = true;
+        submitMemberBtn.textContent = 'Saving Profile...';
+        
+        // Fetch existing member to preserve invoices list
+        const mRef = db.collection('members').doc(email);
+        mRef.get().then(doc => {
+            let invoices = [];
+            if (doc.exists) {
+                invoices = doc.data().invoices || [];
+            }
+            
+            return mRef.set({
+                email,
+                name,
+                memberId: mid,
+                joinedDate: joined,
+                duesStatus,
+                duesAmount: duesAmountVal,
+                dueDate: dueDateVal,
+                invoices
+            }, { merge: true });
+        })
+        .then(() => {
+            submitMemberBtn.disabled = false;
+            submitMemberBtn.textContent = 'Save Member Profile';
+            memberForm.reset();
+            showStatus(memberStatus, 'Member profile saved successfully!', 'success');
+            loadMembers();
+        })
+        .catch(err => {
+            console.error(err);
+            submitMemberBtn.disabled = false;
+            submitMemberBtn.textContent = 'Save Member Profile';
+            showStatus(memberStatus, `Error: ${err.message}`, 'error');
+        });
+    }
+});
+
+// Issue Invoice Form Submission
+invoiceForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const selectedEmail = invoiceMemberSelect.value;
+    const invId = invoiceId.value.trim();
+    const desc = invoiceDesc.value.trim();
+    const amountVal = invoiceAmount.value.trim();
+    const statusVal = invoiceStatusSelect.value;
+    
+    showStatus(invoiceStatusDisplay, '', 'clear');
+    
+    let isValid = true;
+    if (!selectedEmail) {
+        invoiceMemberSelect.parentElement.classList.add('invalid');
+        isValid = false;
+    } else {
+        invoiceMemberSelect.parentElement.classList.remove('invalid');
+    }
+    
+    if (invId === '') {
+        invoiceId.parentElement.classList.add('invalid');
+        isValid = false;
+    } else {
+        invoiceId.parentElement.classList.remove('invalid');
+    }
+    
+    if (desc === '') {
+        invoiceDesc.parentElement.classList.add('invalid');
+        isValid = false;
+    } else {
+        invoiceDesc.parentElement.classList.remove('invalid');
+    }
+    
+    if (amountVal === '') {
+        invoiceAmount.parentElement.classList.add('invalid');
+        isValid = false;
+    } else {
+        invoiceAmount.parentElement.classList.remove('invalid');
+    }
+    
+    if (isValid) {
+        submitInvoiceBtn.disabled = true;
+        submitInvoiceBtn.textContent = 'Issuing Invoice...';
+        
+        const mRef = db.collection('members').doc(selectedEmail.toLowerCase());
+        mRef.get().then(doc => {
+            if (!doc.exists) {
+                throw new Error("Selected member profile does not exist.");
+            }
+            
+            const memberData = doc.data();
+            const invoices = memberData.invoices || [];
+            
+            // Check if invoice ID already exists to prevent duplicate entries
+            if (invoices.some(inv => inv.id.toLowerCase() === invId.toLowerCase())) {
+                throw new Error("An invoice with this ID already exists.");
+            }
+            
+            const newInvoice = {
+                id: invId,
+                date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+                description: desc,
+                amount: amountVal,
+                status: statusVal
+            };
+            
+            invoices.push(newInvoice);
+            
+            // Recalculate member dues automatically if unpaid
+            let updatedDuesAmount = memberData.duesAmount || 'GH¢ 0.00';
+            let updatedDuesStatus = memberData.duesStatus || 'Pending';
+            
+            if (statusVal === 'Unpaid') {
+                const parseAmt = (str) => parseFloat(str.replace(/[^\d.]/g, '')) || 0;
+                const totalDues = parseAmt(updatedDuesAmount) + parseAmt(amountVal);
+                updatedDuesAmount = `GH¢ ${totalDues.toFixed(2)}`;
+                updatedDuesStatus = 'Pending';
+            }
+            
+            return mRef.update({
+                invoices,
+                duesAmount: updatedDuesAmount,
+                duesStatus: updatedDuesStatus
+            });
+        })
+        .then(() => {
+            submitInvoiceBtn.disabled = false;
+            submitInvoiceBtn.textContent = 'Issue Invoice';
+            invoiceForm.reset();
+            showStatus(invoiceStatusDisplay, 'Invoice successfully issued to member!', 'success');
+            loadMembers();
+        })
+        .catch(err => {
+            console.error(err);
+            submitInvoiceBtn.disabled = false;
+            submitInvoiceBtn.textContent = 'Issue Invoice';
+            showStatus(invoiceStatusDisplay, `Error: ${err.message}`, 'error');
+        });
+    }
+});
+
+// Clear invalid borders on inputs
+const memberInputs = [memberEmail, memberName, memberIdInput, invoiceId, invoiceDesc, invoiceAmount];
+memberInputs.forEach(input => {
+    input.addEventListener('input', () => {
+        input.parentElement.classList.remove('invalid');
+    });
+});
+if (invoiceMemberSelect) {
+    invoiceMemberSelect.addEventListener('change', () => {
+        invoiceMemberSelect.parentElement.classList.remove('invalid');
+    });
+}
+
