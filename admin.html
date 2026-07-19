@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kumasi Heritage Virtual Leo-Lions Club - President Dashboard</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Admin Overrides Styling -->
+    <style>
+        .admin-body {
+            background-color: var(--bg-secondary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .admin-nav {
+            background-color: var(--card-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .admin-nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-nav h2 {
+            font-size: 1.25rem;
+            margin: 0;
+            color: var(--primary);
+        }
+
+        .admin-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+        }
+
+        .admin-panel-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Login Card */
+        .login-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .login-card h2 {
+            font-size: 1.75rem;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .login-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Dashboard view */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dashboard-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            padding: 30px;
+            height: fit-content;
+        }
+
+        .dashboard-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1.5px solid var(--border-color);
+        }
+
+        /* Header Info bar */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background-color: var(--card-bg);
+            padding: 20px 30px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .dashboard-header p {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Manage Posts List */
+        .posts-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-height: 520px;
+            overflow-y: auto;
+            padding-right: 8px;
+        }
+
+        .post-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 16px;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+        }
+
+        .post-row-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            overflow: hidden;
+        }
+
+        .post-row-thumb {
+            width: 48px;
+            height: 48px;
+            object-fit: cover;
+            border-radius: 4px;
+            flex-shrink: 0;
+            background-color: #e2e8f0;
+        }
+
+        .post-row-meta {
+            overflow: hidden;
+        }
+
+        .post-row-meta h4 {
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .post-row-meta span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .btn-delete {
+            background-color: transparent;
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-delete:hover {
+            background-color: #ef4444;
+            color: #ffffff;
+        }
+
+        /* Form upload styling */
+        .image-preview-container {
+            margin-top: 10px;
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 12px;
+            text-align: center;
+            background-color: var(--bg-secondary);
+        }
+
+        .image-preview {
+            max-height: 150px;
+            margin: 0 auto 8px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-secondary);
+        }
+    </style>
+</head>
+<body class="light-theme admin-body">
+
+    <!-- Admin Top Navbar -->
+    <nav class="admin-nav">
+        <div class="admin-nav-container" style="display: flex; align-items: center; justify-content: space-between;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <img src="assets/club_logo.png" alt="Club Logo" style="height: 38px; width: 38px; object-fit: contain;">
+                <h2 style="margin: 0; font-size: 1.25rem; font-weight: 700; color: #fff;">KUMASI HERITAGE Admin Desk</h2>
+            </div>
+            <a href="index.html" class="btn btn-secondary btn-sm" style="padding: 8px 16px;">Back to Public Site</a>
+        </div>
+    </nav>
+
+    <!-- Main Workspace -->
+    <div class="admin-container">
+        <div class="admin-panel-wrapper">
+            
+            <!-- 1. LOGIN INTERFACE (Visible when logged out) -->
+            <div id="login-view" class="login-card">
+                <h2>President Login</h2>
+                <p>Enter email and password to access the update publisher dashboard.</p>
+                
+                <form id="login-form" novalidate>
+                    <div class="form-group">
+                        <label for="login-email">Email Address</label>
+                        <input type="email" id="login-email" required placeholder="president@leolionclub.org">
+                        <span class="error-msg" id="login-email-error">Please enter your email.</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" required placeholder="••••••••">
+                        <span class="error-msg" id="login-password-error">Please enter your password.</span>
+                    </div>
+
+                    <button type="submit" id="login-btn" class="btn btn-primary btn-block">Log In</button>
+                    <div class="form-status" id="login-status"></div>
+                </form>
+            </div>
+
+            <!-- 2. DASHBOARD VIEW (Visible when logged in) -->
+            <div id="dashboard-view" style="display: none;">
+                
+                <!-- Status/Logout Banner -->
+                <div class="dashboard-header">
+                    <p>Logged in as: <strong id="admin-user-email">...</strong></p>
+                    <button id="logout-btn" class="btn btn-secondary" style="padding: 8px 20px;">Log Out</button>
+                </div>
+
+                <!-- Tab Switching Navigation -->
+                <div class="admin-tabs">
+                    <button class="tab-btn active" data-tab="tab-updates">Manage Updates</button>
+                    <button class="tab-btn" data-tab="tab-members">Manage Members & Dues</button>
+                </div>
+
+                <!-- Tab 1: Updates -->
+                <div id="tab-updates" class="tab-panel active">
+                    <div class="dashboard-grid">
+                        <!-- Left: Create Post Card -->
+                        <div class="dashboard-card">
+                            <h3>Publish President's Update</h3>
+                            <form id="post-form" novalidate>
+                                <div class="form-group">
+                                    <label for="post-title">Update Title</label>
+                                    <input type="text" id="post-title" required placeholder="e.g., Beach Cleanup Accomplishments!">
+                                    <span class="error-msg">Please enter a title for the update.</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="post-image">Upload Photo (Optional)</label>
+                                    <input type="file" id="post-image" accept="image/*">
+                                    <div class="image-preview-container">
+                                        <img id="image-preview" class="image-preview" src="" alt="Thumbnail preview">
+                                        <span id="preview-placeholder" style="font-size: 0.85rem; color: var(--text-muted);">No image selected (Uses default if empty)</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="post-content">Message / Update Details</label>
+                                    <textarea id="post-content" rows="6" required placeholder="Write details here..."></textarea>
+                                    <span class="error-msg">Please enter update text details.</span>
+                                </div>
+                                <button type="submit" id="submit-post-btn" class="btn btn-primary btn-block">Publish Update</button>
+                                <div class="form-status" id="post-status"></div>
+                            </form>
+                        </div>
+
+                        <!-- Right: Manage Posts Card -->
+                        <div class="dashboard-card">
+                            <h3>Manage Active Updates</h3>
+                            <div class="posts-list" id="posts-list-container">
+                                <p style="text-align: center; color: var(--text-muted);">Fetching updates...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Members & Invoices -->
+                <div id="tab-members" class="tab-panel">
+                    <div class="dashboard-grid">
+                        <!-- Left: Register/Edit Member Form -->
+                        <div class="dashboard-card">
+                            <h3>Register / Edit Member</h3>
+                            <form id="member-form" novalidate>
+                                <div class="form-group">
+                                    <label for="member-email">Email Address</label>
+                                    <input type="email" id="member-email" required placeholder="e.g., klu@leolion.org">
+                                    <span class="error-msg">Please enter a valid member email.</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="member-name">Full Name</label>
+                                    <input type="text" id="member-name" required placeholder="e.g., Klu Evans Kwesi">
+                                    <span class="error-msg">Please enter member's name.</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="member-id">Member ID</label>
+                                    <input type="text" id="member-id" required placeholder="e.g., KHVLLC-024">
+                                    <span class="error-msg">Please enter a Member ID.</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="member-joined">Joined Date (Month/Year)</label>
+                                    <input type="text" id="member-joined" placeholder="e.g., Sept 2025">
+                                </div>
+                                <div class="form-group">
+                                    <label for="member-dues-status">Dues Status</label>
+                                    <select id="member-dues-status">
+                                        <option value="Paid">Paid</option>
+                                        <option value="Pending" selected>Pending</option>
+                                        <option value="Overdue">Overdue</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="member-dues-amount">Outstanding Dues Amount</label>
+                                    <input type="text" id="member-dues-amount" placeholder="e.g., GH¢ 150.00" value="GH¢ 0.00">
+                                </div>
+                                <div class="form-group">
+                                    <label for="member-due-date">Next Dues Due Date</label>
+                                    <input type="text" id="member-due-date" placeholder="e.g., September 1, 2026">
+                                </div>
+                                <button type="submit" id="submit-member-btn" class="btn btn-primary btn-block">Save Member Profile</button>
+                                <div class="form-status" id="member-status"></div>
+                            </form>
+                        </div>
+
+                        <!-- Right: Issue Invoice Card & Members List -->
+                        <div style="display: flex; flex-direction: column; gap: 30px;">
+                            <!-- Issue Invoice Form -->
+                            <div class="dashboard-card" style="width: 100%;">
+                                <h3>Issue Member Invoice</h3>
+                                <form id="invoice-form" novalidate>
+                                    <div class="form-group">
+                                        <label for="invoice-member-select">Select Member</label>
+                                        <select id="invoice-member-select" required>
+                                            <option value="" disabled selected>Select a member...</option>
+                                        </select>
+                                        <span class="error-msg">Please select a member.</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="invoice-id">Invoice Number</label>
+                                        <input type="text" id="invoice-id" required placeholder="e.g., INV-2026-005">
+                                        <span class="error-msg">Please enter an invoice ID.</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="invoice-desc">Description</label>
+                                        <input type="text" id="invoice-desc" required placeholder="e.g., Annual Dues 2026/2027">
+                                        <span class="error-msg">Please enter a description.</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="invoice-amount">Invoice Amount</label>
+                                        <input type="text" id="invoice-amount" required placeholder="e.g., GH¢ 150.00">
+                                        <span class="error-msg">Please enter invoice amount.</span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="invoice-status">Invoice Status</label>
+                                        <select id="invoice-status">
+                                            <option value="Unpaid" selected>Unpaid</option>
+                                            <option value="Paid">Paid</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" id="submit-invoice-btn" class="btn btn-primary btn-block">Issue Invoice</button>
+                                    <div class="form-status" id="invoice-status-display"></div>
+                                </form>
+                            </div>
+
+                            <!-- Registered Members List -->
+                            <div class="dashboard-card" style="width: 100%;">
+                                <h3>Registered Members</h3>
+                                <div class="posts-list" id="members-list-container" style="max-height: 250px;">
+                                    <p style="text-align: center; color: var(--text-muted);">Fetching members...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Firebase compatibility SDKs via CDN -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+
+    <!-- Project Config & Controller -->
+    <script src="firebase-config.js?v=2"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

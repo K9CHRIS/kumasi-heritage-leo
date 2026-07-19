@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kumasi Heritage Virtual Leo-Lions Club - Member Portal</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Portal Specific Styles -->
+    <style>
+        .portal-body {
+            background-color: var(--bg-secondary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .portal-nav {
+            background-color: var(--primary-dark);
+            padding: 16px 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .portal-nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .portal-nav h2 {
+            font-size: 1.25rem;
+            margin: 0;
+            color: #ffffff;
+        }
+
+        .portal-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+        }
+
+        .portal-panel-wrapper {
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* Login Card */
+        .login-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-lg);
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto;
+        }
+
+        .login-card h2 {
+            font-size: 1.75rem;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .login-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Portal Dashboard Layout */
+        .portal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .portal-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .portal-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            padding: 30px;
+            height: fit-content;
+        }
+
+        .portal-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 1.5px solid var(--border-color);
+        }
+
+        /* Header Info banner */
+        .portal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background-color: var(--card-bg);
+            padding: 20px 30px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .portal-header p {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Demo badge */
+        .portal-demo-notice {
+            background: rgba(255, 179, 0, 0.08);
+            border: 1px dashed var(--accent, #d4af37);
+            color: var(--text-main);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-secondary);
+        }
+
+        .btn-sm {
+            padding: 8px 16px;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body class="light-theme portal-body">
+
+    <!-- Top Navbar -->
+    <nav class="portal-nav">
+        <div class="portal-nav-container">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <img src="assets/club_logo.png" alt="Club Logo" style="height: 38px; width: 38px; object-fit: contain;">
+                <h2 style="margin: 0; font-size: 1.25rem; font-weight: 700; font-family: var(--font-heading);">KUMASI HERITAGE Member Desk</h2>
+            </div>
+            <a href="index.html" class="btn btn-secondary btn-sm" style="color: #ffffff; border-color: rgba(255,255,255,0.2);">Back to Site</a>
+        </div>
+    </nav>
+
+    <!-- Main Workspace -->
+    <div class="portal-container">
+        <div class="portal-panel-wrapper">
+            
+            <!-- 1. LOGIN INTERFACE (Visible when logged out) -->
+            <div id="login-view" class="login-card">
+                <h2>Member Login</h2>
+                <p>Enter your member credentials to access dues tracker and invoices.</p>
+                
+                <div id="login-demo-notice" class="portal-demo-notice" style="display:none;"></div>
+                
+                <form id="login-form" novalidate>
+                    <div class="form-group">
+                        <label for="login-email">Email Address</label>
+                        <input type="email" id="login-email" required placeholder="member@leolion.org">
+                        <span class="error-msg" id="login-email-error">Please enter your email.</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" required placeholder="••••••••">
+                        <span class="error-msg" id="login-password-error">Please enter your password.</span>
+                    </div>
+
+                    <button type="submit" id="login-btn" class="btn btn-primary btn-block">Log In</button>
+                    <div class="form-status" id="login-status"></div>
+                </form>
+            </div>
+
+            <!-- 2. MEMBER DASHBOARD VIEW (Visible when logged in) -->
+            <div id="dashboard-view" style="display: none;">
+                
+                <!-- Status/Logout Banner -->
+                <div class="portal-header">
+                    <p>Welcome back, <strong id="portal-user-name">...</strong></p>
+                    <button id="logout-btn" class="btn btn-secondary btn-sm" style="padding: 8px 20px;">Log Out</button>
+                </div>
+
+                <div id="dashboard-demo-notice" class="portal-demo-notice" style="display:none;"></div>
+
+                <div class="portal-grid">
+                    
+                    <!-- Left: Digital Member Card & Quick Dues widget -->
+                    <div>
+                        <!-- Member Card -->
+                        <div class="member-card-wrapper">
+                            <div class="member-digital-card">
+                                <span class="status-badge-card" id="card-status-badge">Pending</span>
+                                <div class="card-header-logo">
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        <img src="assets/club_logo.png" alt="Club Logo" class="card-logo-img">
+                                        <span class="card-org-name">KUMASI HERITAGE</span>
+                                    </div>
+                                </div>
+                                <div class="card-chip"></div>
+                                <h3 class="card-holder-name" id="card-member-name">Evans Klu Kwesi</h3>
+                                <div class="card-meta-grid">
+                                    <div class="card-meta-item">
+                                        <label>Member ID</label>
+                                        <span id="card-member-id">KHVLLC-024</span>
+                                    </div>
+                                    <div class="card-meta-item">
+                                        <label>Joined Since</label>
+                                        <span id="card-member-joined">Sept 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dues Overview Card -->
+                        <div class="dues-widget-card">
+                            <h4 style="font-family: var(--font-heading); margin-bottom: 5px; color: var(--text-muted);">Outstanding Dues Balance</h4>
+                            <div class="dues-amount-display" id="dues-balance">GH¢ 150.00</div>
+                            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">
+                                Next Payment Due: <strong id="dues-next-date">September 1, 2026</strong>
+                            </p>
+                            <div style="display: flex; flex-direction: column; gap: 10px;">
+                                <a href="index.html#donate" class="btn btn-primary btn-block" style="font-size: 0.85rem; padding: 10px;">Pay Outstanding Dues</a>
+                                <p style="font-size: 0.75rem; text-align: center; color: var(--text-muted); margin: 0;">
+                                    Supports payment via Mobile Money, Paystack, and Hubtel
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Invoices Table -->
+                    <div class="invoice-table-wrapper">
+                        <h3 style="font-family: var(--font-heading); margin-bottom: 20px; font-size: 1.25rem;">Invoice & Payment History</h3>
+                        <table class="invoice-table">
+                            <thead>
+                                <tr>
+                                    <th>Invoice ID</th>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th style="text-align: right;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="invoice-rows-container">
+                                <!-- Dynamic invoices loaded via JS -->
+                                <tr>
+                                    <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 30px;">Loading invoice records...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Firebase compatibility SDKs via CDN -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+    <!-- Project Config & Controller -->
+    <script src="firebase-config.js?v=2"></script>
+    <script src="portal.js"></script>
+</body>
+</html>

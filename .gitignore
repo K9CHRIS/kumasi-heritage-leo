@@ -1,0 +1,26 @@
+# OS generated files
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# IDE/Editor folders
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.agent/
+.agents/
+
+# Large media files and raw video directories
+video/
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+*.zip
+*.tar.gz
+*.rar
