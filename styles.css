@@ -2246,3 +2246,63 @@ h1, h2, h3, h4 {
     }
 }
 
+/* ==========================================
+   Solid Icon Badges for Resources & Contact
+   ========================================== */
+.solid-icon-badge, .solid-contact-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.solid-icon-badge {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    margin-bottom: 18px;
+}
+
+.solid-contact-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.solid-icon-badge:hover, .solid-contact-icon:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Solid Color Variants */
+.badge-blue {
+    background: linear-gradient(135deg, #003366 0%, #002244 100%) !important;
+}
+
+.badge-gold {
+    background: linear-gradient(135deg, #D4AF37 0%, #B89220 100%) !important;
+}
+
+.badge-teal {
+    background: linear-gradient(135deg, #008080 0%, #005A5A 100%) !important;
+}
+
+.badge-coral {
+    background: linear-gradient(135deg, #E04848 0%, #C42E2E 100%) !important;
+}
+
+.badge-navy {
+    background: linear-gradient(135deg, #0A2540 0%, #051424 100%) !important;
+}
+
+.contact-details .detail-item {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 24px;
+}
+
+
