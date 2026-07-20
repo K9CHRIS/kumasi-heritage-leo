@@ -2381,5 +2381,44 @@ h1, h2, h3, h4 {
     box-shadow: 0 12px 36px rgba(212, 175, 55, 0.22);
 }
 
+/* Solid Icon Badges for Core Values & Why Join Us */
+.solid-value-icon, .solid-wj-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    color: #ffffff !important;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transition: transform 0.25s ease;
+}
+
+.solid-value-icon:hover, .solid-wj-icon:hover {
+    transform: scale(1.06);
+}
+
+.core-values .value-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.why-join-list {
+    list-style: none;
+    padding: 0;
+    margin: 24px 0;
+}
+
+.why-join-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+
 
 
