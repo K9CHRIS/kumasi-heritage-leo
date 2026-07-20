@@ -2305,4 +2305,81 @@ h1, h2, h3, h4 {
     margin-bottom: 24px;
 }
 
+/* ==========================================
+   Video Sections & Responsive YouTube Player
+   ========================================== */
+.why-join-section {
+    padding: 90px 0;
+    background-color: var(--bg-secondary);
+}
+
+.why-join-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: flex-start; /* Fits video card tightly around video without stretching or blank space below */
+}
+
+@media (max-width: 992px) {
+    .why-join-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+}
+
+.why-join-video {
+    background: var(--card-bg);
+    border: 2px solid var(--accent);
+    border-radius: 20px;
+    padding: 16px;
+    box-shadow: 0 12px 32px rgba(212, 175, 55, 0.2);
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+}
+
+.video-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000000;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.video-caption {
+    margin-top: 14px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* Standalone Video Section ("Our Journey in Motion") */
+.video-section {
+    padding: 80px 0;
+    background-color: var(--bg-primary);
+}
+
+.video-section .video-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    background: var(--card-bg);
+    border: 2px solid var(--accent);
+    border-radius: 20px;
+    padding: 16px;
+    box-shadow: 0 12px 36px rgba(212, 175, 55, 0.22);
+}
+
+
 
