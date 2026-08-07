@@ -498,78 +498,159 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
-    // 10. Board of Directors JS Marquee Control
+    // 10. Board of Directors Interactive Carousel
     // ==========================================
-    const marqueeTrack = document.querySelector('.board-marquee-track');
-    const marqueeContainer = document.querySelector('.board-marquee-container');
-    const arrowLeft = document.querySelector('.marquee-arrow-btn.arrow-left');
-    const arrowRight = document.querySelector('.marquee-arrow-btn.arrow-right');
+    function initBoardCarousel() {
+        const track = document.getElementById('board-carousel-track');
+        const prevBtn = document.getElementById('board-prev-btn');
+        const nextBtn = document.getElementById('board-next-btn');
+        const dotsContainer = document.getElementById('board-carousel-dots');
+        const viewport = document.getElementById('board-carousel-viewport');
 
-    if (marqueeTrack && marqueeContainer) {
-        // Disable fallback CSS animation so JS can control rendering
-        marqueeTrack.style.animation = 'none';
+        if (!track || !viewport) return;
 
-        let currentTranslateX = 0;
-        let baseSpeed = 2.0; // Increased base scrolling speed (was ~1.2px/frame equivalent)
-        let activeSpeed = baseSpeed;
-        let isHovered = false;
+        const cards = track.querySelectorAll('.board-card');
+        if (!cards.length) return;
 
-        function step() {
-            // Scroll to the left (cards move left)
-            currentTranslateX -= activeSpeed;
+        let currentIndex = 0;
+        let cardsPerView = getCardsPerView();
+        let maxIndex = Math.max(0, cards.length - cardsPerView);
+        let autoplayTimer = null;
 
-            const halfWidth = marqueeTrack.scrollWidth / 2;
-            
-            // Loop boundaries
-            if (Math.abs(currentTranslateX) >= halfWidth) {
-                currentTranslateX = 0; // Wrap to start when scrolling left
-            } else if (currentTranslateX > 0) {
-                currentTranslateX = -halfWidth; // Wrap to end when scrolling right (activeSpeed < 0)
-            }
-
-            marqueeTrack.style.transform = `translateX(${currentTranslateX}px)`;
-            requestAnimationFrame(step);
+        function getCardsPerView() {
+            return window.innerWidth <= 600 ? 1 : 2;
         }
 
-        // Pause scroll when hovering over the board cards
-        marqueeTrack.addEventListener('mouseenter', () => {
-            if (!isHovered) {
-                activeSpeed = 0;
+        function createDots() {
+            if (!dotsContainer) return;
+            dotsContainer.innerHTML = '';
+            cardsPerView = getCardsPerView();
+            maxIndex = Math.max(0, cards.length - cardsPerView);
+
+            for (let i = 0; i <= maxIndex; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('board-dot');
+                if (i === currentIndex) dot.classList.add('active');
+                dot.addEventListener('click', () => {
+                    currentIndex = i;
+                    updateCarousel();
+                    resetAutoplay();
+                });
+                dotsContainer.appendChild(dot);
             }
+        }
+
+        function updateCarousel() {
+            cardsPerView = getCardsPerView();
+            maxIndex = Math.max(0, cards.length - cardsPerView);
+
+            if (currentIndex > maxIndex) currentIndex = maxIndex;
+            if (currentIndex < 0) currentIndex = 0;
+
+            const cardWidth = cards[0].getBoundingClientRect().width;
+            const gap = 20;
+            const moveAmount = (cardWidth + gap) * currentIndex;
+
+            track.style.transform = `translateX(-${moveAmount}px)`;
+
+            if (dotsContainer) {
+                const dots = dotsContainer.querySelectorAll('.board-dot');
+                dots.forEach((dot, idx) => {
+                    dot.classList.toggle('active', idx === currentIndex);
+                });
+            }
+        }
+
+        function nextSlide() {
+            if (currentIndex >= maxIndex) {
+                currentIndex = 0;
+            } else {
+                currentIndex++;
+            }
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            if (currentIndex <= 0) {
+                currentIndex = maxIndex;
+            } else {
+                currentIndex--;
+            }
+            updateCarousel();
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                resetAutoplay();
+            });
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                resetAutoplay();
+            });
+        }
+
+        function startAutoplay() {
+            stopAutoplay();
+            autoplayTimer = setInterval(nextSlide, 4500);
+        }
+
+        function stopAutoplay() {
+            if (autoplayTimer) clearInterval(autoplayTimer);
+        }
+
+        function resetAutoplay() {
+            stopAutoplay();
+            startAutoplay();
+        }
+
+        viewport.addEventListener('mouseenter', stopAutoplay);
+        viewport.addEventListener('mouseleave', startAutoplay);
+
+        // Touch Swipe Support
+        let startX = 0;
+        let currentX = 0;
+        let isSwiping = false;
+
+        viewport.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isSwiping = true;
+            stopAutoplay();
+        }, { passive: true });
+
+        viewport.addEventListener('touchmove', (e) => {
+            if (!isSwiping) return;
+            currentX = e.touches[0].clientX;
+        }, { passive: true });
+
+        viewport.addEventListener('touchend', () => {
+            if (!isSwiping) return;
+            isSwiping = false;
+            const diffX = startX - currentX;
+            if (Math.abs(diffX) > 40) {
+                if (diffX > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+            }
+            startAutoplay();
         });
 
-        marqueeTrack.addEventListener('mouseleave', () => {
-            if (!isHovered) {
-                activeSpeed = baseSpeed;
-            }
+        window.addEventListener('resize', () => {
+            createDots();
+            updateCarousel();
         });
 
-        // Hover over indicators to scroll fast in either direction
-        if (arrowLeft) {
-            arrowLeft.addEventListener('mouseenter', () => {
-                isHovered = true;
-                activeSpeed = -6.0; // Scroll right quickly
-            });
-            arrowLeft.addEventListener('mouseleave', () => {
-                isHovered = false;
-                activeSpeed = baseSpeed;
-            });
-        }
-
-        if (arrowRight) {
-            arrowRight.addEventListener('mouseenter', () => {
-                isHovered = true;
-                activeSpeed = 6.0; // Scroll left quickly
-            });
-            arrowRight.addEventListener('mouseleave', () => {
-                isHovered = false;
-                activeSpeed = baseSpeed;
-            });
-        }
-
-        // Start the animation loop
-        requestAnimationFrame(step);
+        createDots();
+        updateCarousel();
+        startAutoplay();
     }
+
+    initBoardCarousel();
 
     // Helpers
     function escapeHTML(str) {
