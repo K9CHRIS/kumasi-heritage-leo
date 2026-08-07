@@ -63,12 +63,13 @@ function setupFirebaseMock() {
         localStorage.setItem('leo_lion_posts', JSON.stringify(defaultPosts));
     }
 
-    // Save default members to localStorage if empty
+    // Save default members to localStorage if empty or missing new executive roles
     const defaultMembers = [
         {
             name: "Klu Evans Kwesi",
             memberId: "KHVLLC-024",
             email: "member@leolion.org",
+            role: "Member",
             joinedDate: "September 12, 2025",
             duesAmount: "GH¢ 150.00",
             duesStatus: "Pending", // Paid, Pending, Overdue
@@ -89,10 +90,44 @@ function setupFirebaseMock() {
                     status: "Paid"
                 }
             ]
+        },
+        {
+            name: "Edwina Efua Quartey",
+            memberId: "KHVLLC-001",
+            email: "president@leolion.org",
+            role: "President",
+            joinedDate: "January 10, 2024",
+            duesAmount: "GH¢ 0.00",
+            duesStatus: "Paid",
+            dueDate: "N/A",
+            invoices: []
+        },
+        {
+            name: "Kwame Osei",
+            memberId: "KHVLLC-002",
+            email: "treasurer@leolion.org",
+            role: "Treasurer",
+            joinedDate: "February 15, 2024",
+            duesAmount: "GH¢ 0.00",
+            duesStatus: "Paid",
+            dueDate: "N/A",
+            invoices: []
+        },
+        {
+            name: "Abena Serwaa",
+            memberId: "KHVLLC-003",
+            email: "marketing@leolion.org",
+            role: "Marketing",
+            joinedDate: "March 11, 2024",
+            duesAmount: "GH¢ 0.00",
+            duesStatus: "Paid",
+            dueDate: "N/A",
+            invoices: []
         }
     ];
 
-    if (!localStorage.getItem('leo_lion_members')) {
+    const currentLocalMembers = localStorage.getItem('leo_lion_members');
+    if (!currentLocalMembers || !currentLocalMembers.includes('treasurer@leolion.org')) {
         localStorage.setItem('leo_lion_members', JSON.stringify(defaultMembers));
     }
     

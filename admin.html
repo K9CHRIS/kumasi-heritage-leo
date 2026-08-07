@@ -304,17 +304,101 @@
                 </div>
 
                 <!-- Tab Switching Navigation -->
-                <div class="admin-tabs">
-                    <button class="tab-btn active" data-tab="tab-updates">Manage Updates</button>
-                    <button class="tab-btn" data-tab="tab-members">Manage Members & Dues</button>
+                <div class="admin-tabs" id="admin-tabs-bar" style="display: none;">
+                    <button class="tab-btn active" data-tab="tab-overview" id="btn-tab-overview">Overview</button>
+                    <button class="tab-btn" data-tab="tab-updates" id="btn-tab-updates">Manage Updates</button>
+                    <button class="tab-btn" data-tab="tab-members" id="btn-tab-members">Manage Members & Dues</button>
+                </div>
+
+                <!-- Tab 0: Overview Dashboard -->
+                <div id="tab-overview" class="tab-panel active">
+                    <div class="dashboard-grid" style="grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; width: 100%;">
+                        
+                        <!-- Financial Operations Overview -->
+                        <div class="dashboard-card" style="grid-column: span 2; width: 100%;">
+                            <h3>Financial Operations Overview</h3>
+                            <div style="display: flex; gap: 40px; align-items: center; flex-wrap: wrap; justify-content: space-around; margin-top: 15px;">
+                                <!-- SVG Dues Gauge -->
+                                <div style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                                    <div style="position: relative; width: 120px; height: 120px; display: flex; align-items: center; justify-content: center;">
+                                        <svg width="120" height="120" viewBox="0 0 120 120" style="transform: rotate(-90deg);">
+                                            <circle cx="60" cy="60" r="50" stroke="rgba(0, 51, 102, 0.06)" stroke-width="10" fill="transparent"/>
+                                            <circle id="overview-dues-gauge" cx="60" cy="60" r="50" stroke="var(--accent)" stroke-width="10" fill="transparent" stroke-dasharray="314.16" stroke-dashoffset="314.16" style="transition: stroke-dashoffset 1s ease-out;"/>
+                                        </svg>
+                                        <div style="position: absolute; text-align: center;">
+                                            <strong id="overview-dues-percentage" style="font-size: 1.35rem; display: block; font-family: var(--font-heading);">0%</strong>
+                                            <span style="font-size: 0.65rem; text-transform: uppercase; color: var(--text-muted); font-weight: 600;">Collected</span>
+                                        </div>
+                                    </div>
+                                    <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-main);">Dues Collection Rate</span>
+                                </div>
+
+                                <!-- Metric Cards Grid -->
+                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; flex: 1; min-width: 280px;">
+                                    <div style="background: var(--bg-secondary); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center;">
+                                        <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 5px;">Total Members</span>
+                                        <strong id="metric-total-members" style="font-size: 1.6rem; color: var(--primary); font-family: var(--font-heading);">0</strong>
+                                    </div>
+                                    <div style="background: var(--bg-secondary); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center;">
+                                        <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 5px;">Active Updates</span>
+                                        <strong id="metric-total-updates" style="font-size: 1.6rem; color: var(--accent); font-family: var(--font-heading);">0</strong>
+                                    </div>
+                                    <div style="background: var(--bg-secondary); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center;">
+                                        <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 5px;">Total Paid Dues</span>
+                                        <strong id="metric-paid-dues" style="font-size: 1.35rem; color: #16a34a; font-family: var(--font-heading);">GH¢ 0.00</strong>
+                                    </div>
+                                    <div style="background: var(--bg-secondary); padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); text-align: center;">
+                                        <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 5px;">Outstanding Dues</span>
+                                        <strong id="metric-pending-dues" style="font-size: 1.35rem; color: #dc2626; font-family: var(--font-heading);">GH¢ 0.00</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quick Activities & Actions -->
+                        <div class="dashboard-card" style="width: 100%;">
+                            <h3>Recent Activity Log</h3>
+                            <div id="overview-recent-activity" style="display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem; max-height: 250px; overflow-y: auto; margin-top: 15px;">
+                                <p style="color: var(--text-muted); text-align: center; padding: 20px;">Fetching activities...</p>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-card" style="width: 100%;">
+                            <h3>Executive Officers & Roles</h3>
+                            <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 15px;">
+                                <div style="display: flex; align-items: center; gap: 12px; padding: 10px; background: var(--bg-secondary); border-radius: 8px; border: 1px solid var(--border-color);">
+                                    <div style="width: 38px; height: 38px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">E</div>
+                                    <div>
+                                        <strong style="display: block; font-size: 0.9rem;">Edwina Efua Quartey</strong>
+                                        <span style="font-size: 0.75rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">President (Overview, Members & Updates)</span>
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px; padding: 10px; background: var(--bg-secondary); border-radius: 8px; border: 1px solid var(--border-color);">
+                                    <div style="width: 38px; height: 38px; border-radius: 50%; background: #16a34a; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">K</div>
+                                    <div>
+                                        <strong style="display: block; font-size: 0.9rem;">Kwame Osei</strong>
+                                        <span style="font-size: 0.75rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Treasurer (Members, Invoices & Finances)</span>
+                                    </div>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 12px; padding: 10px; background: var(--bg-secondary); border-radius: 8px; border: 1px solid var(--border-color);">
+                                    <div style="width: 38px; height: 38px; border-radius: 50%; background: #ec4899; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0;">A</div>
+                                    <div>
+                                        <strong style="display: block; font-size: 0.9rem;">Abena Serwaa</strong>
+                                        <span style="font-size: 0.75rem; color: var(--accent); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Marketing Chair (News Updates & Posts)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
 
                 <!-- Tab 1: Updates -->
-                <div id="tab-updates" class="tab-panel active">
+                <div id="tab-updates" class="tab-panel">
                     <div class="dashboard-grid">
                         <!-- Left: Create Post Card -->
                         <div class="dashboard-card">
-                            <h3>Publish President's Update</h3>
+                            <h3>Publish Club News & Update</h3>
                             <form id="post-form" novalidate>
                                 <div class="form-group">
                                     <label for="post-title">Update Title</label>
@@ -374,6 +458,15 @@
                                 <div class="form-group">
                                     <label for="member-joined">Joined Date (Month/Year)</label>
                                     <input type="text" id="member-joined" placeholder="e.g., Sept 2025">
+                                </div>
+                                <div class="form-group">
+                                    <label for="member-role">Club Role</label>
+                                    <select id="member-role">
+                                        <option value="Member" selected>Member</option>
+                                        <option value="President">President</option>
+                                        <option value="Treasurer">Treasurer</option>
+                                        <option value="Marketing">Marketing Chairperson</option>
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="member-dues-status">Dues Status</label>
