@@ -2,6 +2,14 @@
 // Firebase Admin Panel Logic
 // ==========================================
 
+// Apply persistent theme preference
+const savedTheme = localStorage.getItem('theme') || 'light';
+if (savedTheme === 'dark') {
+    document.body.className = 'dark-theme admin-body';
+} else {
+    document.body.className = 'light-theme admin-body';
+}
+
 // Ensure config exists
 if (!window.firebaseConfig || (window.firebaseConfig.apiKey === "YOUR_API_KEY" && !window.firebaseConfig.isDemoMode)) {
     console.error("Firebase config is missing or contains placeholder values. Please update firebase-config.js.");
@@ -35,16 +43,40 @@ const previewPlaceholder = document.getElementById('preview-placeholder');
 const postsListContainer = document.getElementById('posts-list-container');
 
 // ==========================================
-// 1. Auth State Tracking
+// 1. Auth State Tracking & Role-based Access Control
 // ==========================================
+let currentUserRole = "Member"; // Default cache
+
 auth.onAuthStateChanged(user => {
     if (user) {
-        // User logged in
-        loginView.style.display = 'none';
-        dashboardView.style.display = 'block';
-        adminUserEmail.textContent = user.email;
-        loadAdminPosts();
-        showAdminDemoNotice(true);
+        determineUserRole(user.email).then(role => {
+            currentUserRole = role;
+            if (role === "Member" || role === "Guest") {
+                // Deny access
+                showStatus(loginStatus, `Access Denied: ${user.email} is not registered as an executive officer. Please use the member portal.`, 'error');
+                
+                // Add redirect link to loginStatus display
+                const portalRedirect = document.createElement('div');
+                portalRedirect.style.marginTop = '15px';
+                portalRedirect.innerHTML = `<a href="portal.html" class="btn btn-secondary btn-sm" style="display:inline-block; text-decoration:none; color:var(--text-main); font-weight:600; border:1px solid var(--border-color); padding:6px 14px; border-radius:4px;">Go to Member Portal 🔑</a>`;
+                loginStatus.appendChild(portalRedirect);
+                
+                auth.signOut();
+                return;
+            }
+
+            // Executive Access Granted
+            loginView.style.display = 'none';
+            dashboardView.style.display = 'block';
+            adminUserEmail.textContent = `${user.email} (${role})`;
+            
+            configureDashboardViews(role);
+            showAdminDemoNotice(true);
+        }).catch(err => {
+            console.error("Permission check failed:", err);
+            showStatus(loginStatus, `Permission check failed: ${err.message}`, 'error');
+            auth.signOut();
+        });
     } else {
         // User logged out
         loginView.style.display = 'block';
@@ -52,6 +84,79 @@ auth.onAuthStateChanged(user => {
         showAdminDemoNotice(false);
     }
 });
+
+async function determineUserRole(email) {
+    const cleanEmail = email.toLowerCase().trim();
+    
+    // Out-of-the-box checks for mock demo accounts
+    if (cleanEmail === 'president@leolion.org') return "President";
+    if (cleanEmail === 'treasurer@leolion.org') return "Treasurer";
+    if (cleanEmail === 'marketing@leolion.org') return "Marketing";
+    
+    // Check Firestore members database
+    try {
+        const doc = await db.collection('members').doc(cleanEmail).get();
+        if (doc.exists) {
+            const data = doc.data();
+            return data.role || "Member";
+        }
+    } catch (e) {
+        console.warn("Firestore role check bypassed:", e);
+    }
+    
+    // Email prefix fallback
+    if (cleanEmail.startsWith('president')) return "President";
+    if (cleanEmail.startsWith('treasurer')) return "Treasurer";
+    if (cleanEmail.startsWith('marketing')) return "Marketing";
+    
+    return "Member";
+}
+
+function configureDashboardViews(role) {
+    const tabsBar = document.getElementById('admin-tabs-bar');
+    const tabOverviewBtn = document.getElementById('btn-tab-overview');
+    const tabUpdatesBtn = document.getElementById('btn-tab-updates');
+    const tabMembersBtn = document.getElementById('btn-tab-members');
+    
+    const panelOverview = document.getElementById('tab-overview');
+    const panelUpdates = document.getElementById('tab-updates');
+    const panelMembers = document.getElementById('tab-members');
+
+    // Reset tabs and panels active classes
+    const allTabBtns = document.querySelectorAll('.tab-btn');
+    const allPanels = document.querySelectorAll('.tab-panel');
+    allTabBtns.forEach(b => b.classList.remove('active'));
+    allPanels.forEach(p => p.classList.remove('active'));
+
+    if (role === "President") {
+        // President sees all three tabs, landing on Overview
+        tabsBar.style.display = 'flex';
+        tabOverviewBtn.style.display = 'inline-block';
+        tabUpdatesBtn.style.display = 'inline-block';
+        tabMembersBtn.style.display = 'inline-block';
+        
+        tabOverviewBtn.classList.add('active');
+        panelOverview.classList.add('active');
+        
+        loadOverviewStats();
+    } else if (role === "Treasurer") {
+        // Treasurer only sees members & dues
+        tabsBar.style.display = 'none'; // Hide switcher bar (only one view)
+        
+        tabMembersBtn.classList.add('active');
+        panelMembers.classList.add('active');
+        
+        loadMembers();
+    } else if (role === "Marketing") {
+        // Marketing Chair only sees Updates publishing
+        tabsBar.style.display = 'none'; // Hide switcher bar
+        
+        tabUpdatesBtn.classList.add('active');
+        panelUpdates.classList.add('active');
+        
+        loadAdminPosts();
+    }
+}
 
 // ==========================================
 // 2. Login Form Handling
@@ -371,6 +476,10 @@ function showAdminDemoNotice(isLoggedIn) {
 // 6. Admin Member Portal Tab Logic
 // ==========================================
 
+// ==========================================
+// 6. Admin Member Portal Tab Logic & Analytics Overview
+// ==========================================
+
 // Tabs Switching
 const tabButtons = document.querySelectorAll('.tab-btn');
 const tabPanels = document.querySelectorAll('.tab-panel');
@@ -388,9 +497,144 @@ tabButtons.forEach(btn => {
         
         if (targetTab === 'tab-members') {
             loadMembers();
+        } else if (targetTab === 'tab-updates') {
+            loadAdminPosts();
+        } else if (targetTab === 'tab-overview') {
+            loadOverviewStats();
         }
     });
 });
+
+// President Dashboard Overview Statistics & SVG Gauge Loader
+function loadOverviewStats() {
+    // 1. Fetch updates count
+    db.collection('posts').get().then(postSnap => {
+        const updatesVal = document.getElementById('metric-total-updates');
+        if (updatesVal) updatesVal.textContent = postSnap.size;
+    }).catch(err => console.error("Error loading updates metrics:", err));
+
+    // 2. Fetch members & calculate financial metrics
+    db.collection('members').get().then(memberSnap => {
+        const membersVal = document.getElementById('metric-total-members');
+        if (membersVal) membersVal.textContent = memberSnap.size;
+
+        let totalPaid = 0;
+        let totalPending = 0;
+
+        const parseAmount = (str) => {
+            if (!str) return 0;
+            return parseFloat(str.replace(/[^\d.]/g, '')) || 0;
+        };
+
+        // Sum amounts from all member invoices
+        memberSnap.forEach(doc => {
+            const m = doc.data();
+            const invoices = m.invoices || [];
+            
+            if (invoices.length > 0) {
+                invoices.forEach(inv => {
+                    const invAmt = parseAmount(inv.amount);
+                    if (inv.status.toLowerCase() === 'paid') {
+                        totalPaid += invAmt;
+                    } else {
+                        totalPending += invAmt;
+                    }
+                });
+            } else {
+                // Fallback to duesAmount if invoices are empty
+                const amt = parseAmount(m.duesAmount);
+                const status = (m.duesStatus || 'Pending').toLowerCase();
+                if (status === 'paid') {
+                    totalPaid += amt;
+                } else {
+                    totalPending += amt;
+                }
+            }
+        });
+
+        const paidDuesVal = document.getElementById('metric-paid-dues');
+        const pendingDuesVal = document.getElementById('metric-pending-dues');
+        if (paidDuesVal) paidDuesVal.textContent = `GH¢ ${totalPaid.toFixed(2)}`;
+        if (pendingDuesVal) pendingDuesVal.textContent = `GH¢ ${totalPending.toFixed(2)}`;
+
+        // Calculate collection rate percentage
+        const totalDues = totalPaid + totalPending;
+        const rate = totalDues > 0 ? Math.round((totalPaid / totalDues) * 100) : 100;
+        
+        const ratePercentageVal = document.getElementById('overview-dues-percentage');
+        if (ratePercentageVal) ratePercentageVal.textContent = `${rate}%`;
+
+        // Update the SVG gauge ring offset
+        const circle = document.getElementById('overview-dues-gauge');
+        if (circle) {
+            const radius = circle.r.baseVal.value;
+            const circumference = 2 * Math.PI * radius;
+            const offset = circumference - (rate / 100 * circumference);
+            circle.style.strokeDashoffset = offset;
+        }
+    }).catch(err => console.error("Error loading financial stats:", err));
+
+    // 3. Render a dynamic activity log from posts & members
+    const activityLog = document.getElementById('overview-recent-activity');
+    if (activityLog) {
+        activityLog.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">Updating activities...</p>';
+        
+        Promise.all([
+            db.collection('posts').orderBy('timestamp', 'desc').limit(4).get(),
+            db.collection('members').limit(4).get()
+        ]).then(([postsSnap, membersSnap]) => {
+            const activities = [];
+
+            postsSnap.forEach(doc => {
+                const post = doc.data();
+                activities.push({
+                    text: `📢 News Update: "${post.title}" published by ${post.author ? post.author.split('@')[0] : 'Admin'}`,
+                    time: post.dateString || 'Recently',
+                    timestamp: post.timestamp || Date.now()
+                });
+            });
+
+            membersSnap.forEach(doc => {
+                const m = doc.data();
+                activities.push({
+                    text: `👤 Member profile updated: ${m.name} (${m.memberId})`,
+                    time: m.joinedDate || 'Recently',
+                    timestamp: Date.now() - 7200000 // Offset for sorting
+                });
+            });
+
+            // Sort by latest action
+            activities.sort((a, b) => b.timestamp - a.timestamp);
+
+            activityLog.innerHTML = '';
+            if (activities.length === 0) {
+                activityLog.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 15px;">No activity logged yet.</p>';
+                return;
+            }
+
+            activities.slice(0, 5).forEach(act => {
+                const row = document.createElement('div');
+                row.className = 'activity-log-row';
+                row.style.padding = '10px 12px';
+                row.style.background = 'var(--bg-secondary)';
+                row.style.border = '1px solid var(--border-color)';
+                row.style.borderRadius = '6px';
+                row.style.display = 'flex';
+                row.style.justifyContent = 'space-between';
+                row.style.alignItems = 'center';
+                row.style.fontSize = '0.85rem';
+                row.innerHTML = `
+                    <span>${escapeHTML(act.text)}</span>
+                    <span style="font-size: 0.75rem; color: var(--text-muted); flex-shrink: 0; margin-left: 10px;">${escapeHTML(act.time)}</span>
+                `;
+                activityLog.appendChild(row);
+            });
+        }).catch(err => {
+            console.error("Activity log load error:", err);
+            activityLog.innerHTML = '<p style="color: #ef4444; text-align: center;">Error loading activities.</p>';
+        });
+    }
+}
 
 // Member Management Variables Selection
 const memberForm = document.getElementById('member-form');
@@ -471,6 +715,9 @@ function loadMembers() {
                     memberName.value = member.name;
                     memberIdInput.value = member.memberId;
                     memberJoined.value = member.joinedDate || '';
+                    if (document.getElementById('member-role')) {
+                        document.getElementById('member-role').value = member.role || 'Member';
+                    }
                     memberDuesStatus.value = member.duesStatus || 'Pending';
                     memberDuesAmount.value = member.duesAmount || 'GH¢ 0.00';
                     memberDueDate.value = member.dueDate || '';
@@ -535,11 +782,15 @@ memberForm.addEventListener('submit', (e) => {
                 invoices = doc.data().invoices || [];
             }
             
+            const roleSelect = document.getElementById('member-role');
+            const roleVal = roleSelect ? roleSelect.value : "Member";
+
             return mRef.set({
                 email,
                 name,
                 memberId: mid,
                 joinedDate: joined,
+                role: roleVal,
                 duesStatus,
                 duesAmount: duesAmountVal,
                 dueDate: dueDateVal,

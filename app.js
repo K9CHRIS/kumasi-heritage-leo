@@ -155,9 +155,119 @@ document.addEventListener('DOMContentLoaded', () => {
     setInterval(updateCountdown, 1000);
     updateCountdown(); // Run immediately
 
-    // Force light theme and clean up local storage overrides
-    document.body.className = 'light-theme';
-    localStorage.removeItem('theme');
+    // ==========================================
+    // 3. Theme Toggle & Persistent Settings
+    // ==========================================
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    
+    if (currentTheme === 'dark') {
+        document.body.className = 'dark-theme';
+    } else {
+        document.body.className = 'light-theme';
+    }
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.body.classList.contains('dark-theme')) {
+                document.body.className = 'light-theme';
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.body.className = 'dark-theme';
+                localStorage.setItem('theme', 'dark');
+            }
+            updateThemeSwitcherUI();
+        });
+    }
+
+    function updateThemeSwitcherUI() {
+        if (!themeToggleBtn) return;
+        const isDark = document.body.classList.contains('dark-theme');
+        themeToggleBtn.setAttribute('aria-checked', isDark ? 'true' : 'false');
+    }
+    updateThemeSwitcherUI();
+
+    // ==========================================
+    // Back to Top Button with Scroll Progress
+    // ==========================================
+    const backToTopBtn = document.getElementById('back-to-top');
+    const progressCircle = document.getElementById('back-to-top-progress');
+
+    if (backToTopBtn && progressCircle) {
+        const radius = progressCircle.r.baseVal.value;
+        const circumference = 2 * Math.PI * radius;
+        progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
+        progressCircle.style.strokeDashoffset = circumference;
+
+        function updateProgress() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            
+            if (scrollTop > 300) {
+                backToTopBtn.classList.add('visible');
+            } else {
+                backToTopBtn.classList.remove('visible');
+            }
+
+            if (docHeight > 0) {
+                const scrollPercent = scrollTop / docHeight;
+                const offset = circumference - (scrollPercent * circumference);
+                progressCircle.style.strokeDashoffset = offset;
+            }
+        }
+
+        window.addEventListener('scroll', updateProgress);
+        updateProgress();
+
+        backToTopBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // ==========================================
+    // Donation Impact Calculator
+    // ==========================================
+    const donationSlider = document.getElementById('donation-slider');
+    const calcGhs = document.getElementById('calc-amount-ghs');
+    const calcUsd = document.getElementById('calc-amount-usd');
+    const calcImpactText = document.getElementById('calc-impact-text');
+
+    if (donationSlider && calcGhs && calcUsd && calcImpactText) {
+        const usdRate = 15.0; // Mock exchange rate: 1 USD = 15 GH¢
+        
+        const impacts = [
+            { threshold: 50, text: "🌱 Plants 2 shade trees in community parks to combat deforestation and clean local air." },
+            { threshold: 100, text: "🍱 Feeds a vulnerable family of four in Kumasi for a full week through our Food for Families project." },
+            { threshold: 250, text: "📚 Provides school textbooks, writing materials, and educational kits for 2 children." },
+            { threshold: 500, text: "💻 Funds digital literacy and coding training modules for 5 underprivileged youth." },
+            { threshold: 1000, text: "🏥 Sponsors a free community health screening and basic medication distribution outreach." },
+            { threshold: 2000, text: "🔧 Restores a local borehole water facility to deliver clean, potable water to an entire community." }
+        ];
+
+        function calculateImpact() {
+            const amountGhs = parseInt(donationSlider.value, 10);
+            const amountUsd = amountGhs / usdRate;
+
+            calcGhs.textContent = `GH¢ ${amountGhs.toLocaleString()}`;
+            calcUsd.textContent = `$${amountUsd.toFixed(2)}`;
+
+            // Determine matching impact
+            let matchedImpact = impacts[0].text;
+            for (let i = 0; i < impacts.length; i++) {
+                if (amountGhs >= impacts[i].threshold) {
+                    matchedImpact = impacts[i].text;
+                }
+            }
+            calcImpactText.textContent = matchedImpact;
+        }
+
+        donationSlider.addEventListener('input', calculateImpact);
+        calculateImpact(); // Initial run
+    }
 
     // ==========================================
     // 4. Sticky Header & Active Navigation Link
@@ -386,6 +496,80 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // ==========================================
+    // 10. Board of Directors JS Marquee Control
+    // ==========================================
+    const marqueeTrack = document.querySelector('.board-marquee-track');
+    const marqueeContainer = document.querySelector('.board-marquee-container');
+    const arrowLeft = document.querySelector('.marquee-arrow-btn.arrow-left');
+    const arrowRight = document.querySelector('.marquee-arrow-btn.arrow-right');
+
+    if (marqueeTrack && marqueeContainer) {
+        // Disable fallback CSS animation so JS can control rendering
+        marqueeTrack.style.animation = 'none';
+
+        let currentTranslateX = 0;
+        let baseSpeed = 2.0; // Increased base scrolling speed (was ~1.2px/frame equivalent)
+        let activeSpeed = baseSpeed;
+        let isHovered = false;
+
+        function step() {
+            // Scroll to the left (cards move left)
+            currentTranslateX -= activeSpeed;
+
+            const halfWidth = marqueeTrack.scrollWidth / 2;
+            
+            // Loop boundaries
+            if (Math.abs(currentTranslateX) >= halfWidth) {
+                currentTranslateX = 0; // Wrap to start when scrolling left
+            } else if (currentTranslateX > 0) {
+                currentTranslateX = -halfWidth; // Wrap to end when scrolling right (activeSpeed < 0)
+            }
+
+            marqueeTrack.style.transform = `translateX(${currentTranslateX}px)`;
+            requestAnimationFrame(step);
+        }
+
+        // Pause scroll when hovering over the board cards
+        marqueeTrack.addEventListener('mouseenter', () => {
+            if (!isHovered) {
+                activeSpeed = 0;
+            }
+        });
+
+        marqueeTrack.addEventListener('mouseleave', () => {
+            if (!isHovered) {
+                activeSpeed = baseSpeed;
+            }
+        });
+
+        // Hover over indicators to scroll fast in either direction
+        if (arrowLeft) {
+            arrowLeft.addEventListener('mouseenter', () => {
+                isHovered = true;
+                activeSpeed = -6.0; // Scroll right quickly
+            });
+            arrowLeft.addEventListener('mouseleave', () => {
+                isHovered = false;
+                activeSpeed = baseSpeed;
+            });
+        }
+
+        if (arrowRight) {
+            arrowRight.addEventListener('mouseenter', () => {
+                isHovered = true;
+                activeSpeed = 6.0; // Scroll left quickly
+            });
+            arrowRight.addEventListener('mouseleave', () => {
+                isHovered = false;
+                activeSpeed = baseSpeed;
+            });
+        }
+
+        // Start the animation loop
+        requestAnimationFrame(step);
+    }
 
     // Helpers
     function escapeHTML(str) {
