@@ -1,5 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
+    // 0. Automatic Subdomain Router
+    // ==========================================
+    const host = window.location.hostname.toLowerCase();
+    if (host.startsWith('portal.') || host.startsWith('members.')) {
+        if (!window.location.pathname.includes('portal.html')) {
+            window.location.replace('portal.html');
+            return;
+        }
+    } else if (host.startsWith('admin.')) {
+        if (!window.location.pathname.includes('admin.html')) {
+            window.location.replace('admin.html');
+            return;
+        }
+    }
+
+    // ==========================================
     // 1. Firebase Initialization & Dynamic Feed
     // ==========================================
     const updatesContainer = document.getElementById('updates-feed-container');

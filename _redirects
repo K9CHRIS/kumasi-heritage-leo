@@ -1,0 +1,6 @@
+# Subdomain and Clean URL Redirect Rules for Static Hosting (Netlify / Cloudflare Pages)
+
+/portal    /portal.html    200
+/admin     /admin.html     200
+/login     /portal.html    200
+/dashboard /admin.html     200
