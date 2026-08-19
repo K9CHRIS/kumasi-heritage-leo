@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found | Kumasi Heritage Virtual Leo-Lions Club</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="The page you requested could not be found on Kumasi Heritage Virtual Leo-Lions Club. Return to our home page or visit our member portal.">
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="https://kumasiheritageleolions.org/404.html">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kumasiheritageleolions.org/404.html">
+    <meta property="og:title" content="Page Not Found | Kumasi Heritage Virtual Leo-Lions Club">
+    <meta property="og:description" content="The page you requested could not be found. Return to our home page or visit our member portal.">
+    <meta property="og:image" content="https://kumasiheritageleolions.org/assets/club_logo.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    <link rel="apple-touch-icon" href="assets/favicon.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+
+    <style>
+        .error-page-wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            background: var(--bg-secondary);
+            position: relative;
+        }
+
+        .error-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 50px 40px;
+            max-width: 550px;
+            width: 100%;
+            box-shadow: var(--shadow-md);
+        }
+
+        .error-logo {
+            width: 90px;
+            height: 90px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            background: #fff;
+            padding: 4px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .error-code {
+            font-size: 5rem;
+            font-weight: 800;
+            color: var(--primary);
+            line-height: 1;
+            margin-bottom: 10px;
+            font-family: var(--font-heading);
+        }
+
+        .error-title {
+            font-size: 1.6rem;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-family: var(--font-heading);
+        }
+
+        .error-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+
+<body class="light-theme">
+    <main class="error-page-wrapper">
+        <div class="error-card">
+            <img src="assets/club_logo.png" alt="Kumasi Heritage Virtual Leo-Lions Club Logo" class="error-logo">
+            <div class="error-code">404</div>
+            <h1 class="error-title">Page Not Found</h1>
+            <p class="error-desc">The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+
+            <div class="error-actions">
+                <a href="index.html" class="btn btn-primary">Return to Home</a>
+                <a href="portal.html" class="btn btn-outline">Member Portal</a>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>
