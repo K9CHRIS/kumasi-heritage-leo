@@ -181,7 +181,8 @@ if __name__ == '__main__':
     files_to_check = [
         os.path.join(workspace_dir, 'index.html'),
         os.path.join(workspace_dir, 'portal.html'),
-        os.path.join(workspace_dir, 'admin.html')
+        os.path.join(workspace_dir, 'admin.html'),
+        os.path.join(workspace_dir, '404.html')
     ]
 
     all_passed = True
