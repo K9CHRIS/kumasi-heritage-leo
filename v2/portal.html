@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kumasi Heritage Virtual Leo-Lions Club - Member Portal (V2)</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Member portal for Kumasi Heritage Virtual Leo-Lions Club members to access digital ID cards, dues, meeting minutes, and service event schedules.">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://kumasiheritageleolions.org/portal.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kumasiheritageleolions.org/portal.html">
+    <meta property="og:title" content="Member Portal - Kumasi Heritage Virtual Leo-Lions Club">
+    <meta property="og:description" content="Access digital membership cards, project schedules, and dues status.">
+    <meta property="og:image" content="https://kumasiheritageleolions.org/assets/club_logo.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .portal-wrapper-v2 {
+            padding: 140px 0 80px;
+        }
+
+        .portal-grid-v2 {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 40px;
+        }
+
+        .digital-id-card {
+            background: linear-gradient(135deg, var(--navy-800) 0%, var(--navy-950) 100%);
+            border: 1px solid var(--border-highlight);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            box-shadow: var(--shadow-gold-glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .id-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .id-logo {
+            width: 44px;
+            height: 44px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: #fff;
+            padding: 2px;
+        }
+
+        .id-status-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--emerald-500);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+        }
+
+        .id-member-name {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .id-member-role {
+            font-size: 0.85rem;
+            color: var(--gold-400);
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .id-details-list {
+            list-style: none;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .id-details-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .portal-panel-v2 {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: 36px;
+            backdrop-filter: blur(16px);
+        }
+
+        .panel-header-v2 {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .panel-title-v2 {
+            font-size: 1.3rem;
+            font-weight: 800;
+        }
+
+        @media (max-width: 900px) {
+            .portal-grid-v2 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Ambient Glowing Background Meshes -->
+    <div class="ambient-glow-wrapper">
+        <div class="glow-orb glow-orb-1"></div>
+        <div class="glow-orb glow-orb-2"></div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="v2-navbar scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="brand-logo-group">
+                <img src="../assets/club_logo.png" alt="Kumasi Heritage Logo" class="brand-logo-img">
+                <span class="brand-title">Kumasi Heritage <span>Leo-Lions</span></span>
+            </a>
+            <div class="nav-actions">
+                <a href="index.html" class="btn-v2 btn-glass">← Return to Website</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="portal-wrapper-v2 container">
+        <div class="portal-grid-v2">
+            <!-- Digital Membership Card -->
+            <div class="digital-id-card">
+                <div class="id-header">
+                    <img src="../assets/club_logo.png" alt="Club Logo" class="id-logo">
+                    <span class="id-status-badge">Active Member</span>
+                </div>
+                <div class="id-member-name">Leo Member</div>
+                <div class="id-member-role">Kumasi Heritage Virtual Leo-Lions Club</div>
+
+                <ul class="id-details-list">
+                    <li><span>Member ID:</span> <strong>KHVLC-2026-088</strong></li>
+                    <li><span>District:</span> <strong>418 Ghana</strong></li>
+                    <li><span>Dues Status:</span> <strong style="color: var(--emerald-500);">Up to Date</strong></li>
+                    <li><span>Valid Thru:</span> <strong>June 2026</strong></li>
+                </ul>
+            </div>
+
+            <!-- Portal Dashboard Area -->
+            <div class="portal-panel-v2">
+                <div class="panel-header-v2">
+                    <h1 class="panel-title-v2">Member Dashboard & Resources</h1>
+                    <span style="font-size: 0.85rem; color: var(--gold-400);">Welcome Back!</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-glass);">
+                        <h3 style="font-size: 1rem; color: var(--gold-400); margin-bottom: 8px;">Upcoming Meeting</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">General Meeting - First Sunday of the Month at 4:00 PM GMT (Virtual Zoom).</p>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.03); padding: 20px; border-radius: var(--radius-md); border: 1px solid var(--border-glass);">
+                        <h3 style="font-size: 1rem; color: var(--gold-400); margin-bottom: 8px;">Next Service Project</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">Community Eye Screening & Vision Care Drive, Kumasi Central.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer V2 -->
+    <footer class="footer-v2">
+        <div class="container">
+            <div class="footer-bottom-v2">
+                <p>&copy; 2026 Kumasi Heritage Virtual Leo-Lions Club. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
