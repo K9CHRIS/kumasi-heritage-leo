@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kumasi Heritage Virtual Leo-Lions Club - President Dashboard (V2)</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="President administration dashboard for Kumasi Heritage Virtual Leo-Lions Club executive announcements.">
+    <meta name="robots" content="noindex, follow">
+    <link rel="canonical" href="https://kumasiheritageleolions.org/admin.html">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kumasiheritageleolions.org/admin.html">
+    <meta property="og:title" content="President Dashboard - Kumasi Heritage Virtual Leo-Lions Club">
+    <meta property="og:description" content="President executive publisher dashboard.">
+    <meta property="og:image" content="https://kumasiheritageleolions.org/assets/club_logo.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../assets/favicon.png">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .admin-wrapper-v2 {
+            padding: 140px 0 80px;
+            max-width: 800px;
+        }
+
+        .admin-card-v2 {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-card);
+        }
+
+        .form-group-v2 {
+            margin-bottom: 24px;
+        }
+
+        .form-label-v2 {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .form-input-v2, .form-textarea-v2 {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            transition: var(--transition-fast);
+        }
+
+        .form-input-v2:focus, .form-textarea-v2:focus {
+            outline: none;
+            border-color: var(--gold-500);
+            background: rgba(245, 158, 11, 0.05);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Ambient Glowing Background Meshes -->
+    <div class="ambient-glow-wrapper">
+        <div class="glow-orb glow-orb-1"></div>
+        <div class="glow-orb glow-orb-2"></div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="v2-navbar scrolled">
+        <div class="container nav-container">
+            <a href="index.html" class="brand-logo-group">
+                <img src="../assets/club_logo.png" alt="Kumasi Heritage Logo" class="brand-logo-img">
+                <span class="brand-title">President <span>Executive Admin</span></span>
+            </a>
+            <div class="nav-actions">
+                <a href="index.html" class="btn-v2 btn-glass">← Return to Website</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container admin-wrapper-v2">
+        <div class="admin-card-v2">
+            <h1 style="font-size: 1.8rem; margin-bottom: 8px;">Publish News & Announcement</h1>
+            <p style="color: var(--text-secondary); margin-bottom: 30px;">Updates published here sync directly to the public website feed.</p>
+
+            <form id="admin-post-form">
+                <div class="form-group-v2">
+                    <label class="form-label-v2">Announcement Title</label>
+                    <input type="text" class="form-input-v2" placeholder="e.g. Successful Completion of Vision Care Screening" required>
+                </div>
+
+                <div class="form-group-v2">
+                    <label class="form-label-v2">Category Tag</label>
+                    <input type="text" class="form-input-v2" placeholder="e.g. Service Project / Vision / Community Drive">
+                </div>
+
+                <div class="form-group-v2">
+                    <label class="form-label-v2">Full Announcement Content</label>
+                    <textarea class="form-textarea-v2" rows="5" placeholder="Enter post details..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-v2 btn-gold" style="width: 100%;">Publish Announcement 🚀</button>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer V2 -->
+    <footer class="footer-v2">
+        <div class="container">
+            <div class="footer-bottom-v2">
+                <p>&copy; 2026 Kumasi Heritage Virtual Leo-Lions Club. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
