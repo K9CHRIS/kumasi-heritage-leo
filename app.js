@@ -21,74 +21,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const updatesContainer = document.getElementById('updates-feed-container');
     let db = null;
 
-    if (window.firebaseConfig && (window.firebaseConfig.apiKey !== "YOUR_API_KEY" || window.firebaseConfig.isDemoMode)) {
+    if (window.firebaseConfig && window.firebaseConfig.apiKey !== "YOUR_API_KEY" && !window.firebaseConfig.isDemoMode) {
         try {
             firebase.initializeApp(window.firebaseConfig);
             db = firebase.firestore();
             loadUpdatesFromFirestore();
         } catch (err) {
-            console.error("Firebase initialization failed:", err);
-            showFirebaseWarning("Firebase initialization failed. Check your config key format.");
+            console.warn("Firebase live sync offline, displaying pre-rendered announcements feed:", err);
         }
-    } else {
-        // Firebase is not configured yet, show local preview notice
-        showFirebaseWarning("Firebase is not configured yet. Complete the steps in firebase_setup.md to activate live posts!");
-    }
-
-    function showFirebaseWarning(message) {
-        if (!updatesContainer) return;
-        updatesContainer.innerHTML = `
-            <div class="firebase-warning-card">
-                <div class="warning-icon">⚙️</div>
-                <p><strong>Database Live Feed Offline</strong></p>
-                <p class="warning-text">${message}</p>
-                <!-- Fallback Mock Post so the site doesn't look empty -->
-                <div class="mock-posts-preview">
-                    <div class="update-card">
-                        <img src="assets/project_food.png" class="update-card-img" alt="Preview Image">
-                        <div class="update-card-body">
-                            <div class="update-card-meta">
-                                <span>📅 Live Preview</span>
-                                <span>👤 Club Secretary (Mock)</span>
-                            </div>
-                            <h3 class="update-card-title">Welcome to Our Live Feed!</h3>
-                            <p class="update-card-text">Once you link your Firebase database, posts created by the President in the Admin Panel will appear here instantly. Overwrite configuration in firebase-config.js to link.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
     }
 
     function loadUpdatesFromFirestore() {
-        if (!db) return;
+        if (!db || !updatesContainer) return;
         
         db.collection('posts')
             .orderBy('timestamp', 'desc')
             .onSnapshot((snapshot) => {
-                updatesContainer.innerHTML = ''; // Clear loading spinner
-
-                if (window.firebaseConfig && window.firebaseConfig.isDemoMode) {
-                    const demoBanner = document.createElement('div');
-                    demoBanner.className = 'firebase-warning-card demo-mode-card';
-                    demoBanner.style.border = '1px dashed var(--accent-color, #ffb300)';
-                    demoBanner.style.background = 'rgba(255, 179, 0, 0.08)';
-                    demoBanner.style.marginBottom = '24px';
-                    demoBanner.style.padding = '15px';
-                    demoBanner.style.borderRadius = '12px';
-                    demoBanner.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.05)';
-                    demoBanner.innerHTML = `
-                        <p style="margin: 0; color: var(--accent-color, #ffb300); font-weight: bold; font-size: 1.15rem; text-align: center;">
-                            ✨ Demo Mode Active (Local Storage Database)
-                        </p>
-                        <p style="margin: 6px 0 0 0; font-size: 0.95rem; text-align: center; color: var(--text-color); opacity: 0.9;">
-                            Updates are saved locally in your browser. 
-                            <a href="admin.html" style="color: var(--accent-color, #ffb300); font-weight: bold; text-decoration: underline;">Go to Admin Panel</a> 
-                            to log in using any email/password and post updates!
-                        </p>
-                    `;
-                    updatesContainer.appendChild(demoBanner);
-                }
+                if (snapshot.empty) return;
+                
+                updatesContainer.innerHTML = ''; // Replace with live database posts
+                
+                snapshot.forEach(doc => {
+                    const post = doc.data();
+                    const title = escapeHTML(post.title);
+                    const content = escapeHTML(post.content);
+                    const imageUrl = escapeHTML(post.imageUrl || 'assets/events/social_media_event_aug23.jpg');
+                    const date = escapeHTML(post.dateString || 'Recently');
 
                 if (snapshot.empty) {
                     const emptyState = document.createElement('div');
