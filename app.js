@@ -607,6 +607,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initBoardCarousel();
 
+    // Compact Birthday Strip Controls
+    const bday1Prev = document.getElementById('bday-v1-prev');
+    const bday1Next = document.getElementById('bday-v1-next');
+    const bday1Track = document.getElementById('bday-v1-track');
+    if (bday1Prev && bday1Next && bday1Track) {
+        bday1Prev.addEventListener('click', () => {
+            bday1Track.scrollBy({ left: -360, behavior: 'smooth' });
+        });
+        bday1Next.addEventListener('click', () => {
+            bday1Track.scrollBy({ left: 360, behavior: 'smooth' });
+        });
+    }
+
     // Helpers
     function escapeHTML(str) {
         return str.replace(/[&<>'"]/g, 
