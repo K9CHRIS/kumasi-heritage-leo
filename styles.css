@@ -3028,125 +3028,164 @@ body.dark-theme .marquee-arrow-btn:hover {
    Member Birthdays Section
    ========================================================================== */
 .birthdays-section {
-    padding: 100px 0;
-    background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
-    position: relative;
-    overflow: hidden;
+    padding: 36px 0;
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
 }
 
-.birthdays-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
-}
-
-.birthday-card {
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    padding: 24px;
-    text-align: center;
-    position: relative;
-    box-shadow: var(--shadow-sm);
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+.bday-header-compact {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
-.birthday-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-md);
+.bday-header-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.bday-header-title h3 {
+    font-size: 1.3rem;
+    color: var(--text-primary);
+    margin: 0;
+    font-weight: 700;
+}
+
+.bday-header-title span {
+    font-size: 0.85rem;
+    color: var(--primary);
+    font-weight: 600;
+}
+
+body.dark-theme .bday-header-title span {
+    color: var(--accent);
+}
+
+.bday-nav-btns {
+    display: flex;
+    gap: 8px;
+}
+
+.bday-nav-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 1.1rem;
+}
+
+.bday-nav-btn:hover {
+    background: var(--accent);
+    color: #ffffff;
     border-color: var(--accent);
 }
 
-.birthday-badge {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    background: linear-gradient(135deg, #d4af37 0%, #f59e0b 100%);
-    color: #ffffff;
-    font-size: 0.75rem;
-    font-weight: 700;
-    padding: 4px 12px;
-    border-radius: 20px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+.birthday-strip-container {
+    display: flex;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 6px 2px 14px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) transparent;
 }
 
-.birthday-avatar-wrap {
+.birthday-strip-container::-webkit-scrollbar {
+    height: 5px;
+}
+
+.birthday-strip-container::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 4px;
+}
+
+.birthday-mini-card {
+    flex: 0 0 170px;
+    width: 170px;
+    scroll-snap-align: start;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 12px 10px;
+    text-align: center;
     position: relative;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    margin-bottom: 20px;
-    padding: 4px;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-    box-shadow: 0 8px 20px rgba(0, 51, 102, 0.15);
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-xs);
 }
 
-.birthday-avatar-wrap img {
+.birthday-mini-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.bday-avatar-mini {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 8px;
+    border-radius: 50%;
+    padding: 2px;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+}
+
+.bday-avatar-mini img {
     width: 100%;
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
-    background: var(--bg-secondary);
 }
 
-.birthday-name {
-    font-size: 1.25rem;
+.bday-mini-name {
+    font-size: 0.88rem;
     font-weight: 700;
     color: var(--text-primary);
-    margin-bottom: 4px;
-    font-family: var(--font-heading);
+    margin: 0 0 2px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.birthday-role {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    margin-bottom: 12px;
-    font-weight: 500;
-}
-
-.birthday-date-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--bg-secondary);
-    border: 1px solid var(--border-color);
-    padding: 6px 14px;
-    border-radius: 30px;
-    font-size: 0.88rem;
-    font-weight: 600;
-    color: var(--primary);
-    margin-bottom: 18px;
-}
-
-body.dark-theme .birthday-date-pill {
+.bday-mini-role {
+    font-size: 0.72rem;
     color: var(--accent);
+    margin: 0 0 8px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
 }
 
-.birthday-actions {
+.bday-mini-btn {
+    display: block;
     width: 100%;
-    margin-top: auto;
-}
-
-.birthday-notice-box {
-    margin-top: 50px;
-    background: rgba(0, 51, 102, 0.04);
-    border: 1px dashed var(--primary);
-    border-radius: 16px;
-    padding: 24px 30px;
+    padding: 5px 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 8px;
     text-align: center;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
+    border: 1px solid var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    transition: all 0.2s ease;
 }
 
-body.dark-theme .birthday-notice-box {
-    background: rgba(212, 175, 55, 0.05);
+.bday-mini-btn:hover {
+    background: var(--accent);
+    color: #ffffff;
     border-color: var(--accent);
 }
+
 

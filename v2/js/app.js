@@ -234,4 +234,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1200);
         });
     }
+
+    // ==========================================
+    // 5. Compact Birthday Strip Controls
+    // ==========================================
+    const bdayPrev = document.getElementById('bday-v2-prev');
+    const bdayNext = document.getElementById('bday-v2-next');
+    const bdayTrack = document.getElementById('bday-v2-track');
+    if (bdayPrev && bdayNext && bdayTrack) {
+        bdayPrev.addEventListener('click', () => {
+            bdayTrack.scrollBy({ left: -360, behavior: 'smooth' });
+        });
+        bdayNext.addEventListener('click', () => {
+            bdayTrack.scrollBy({ left: 360, behavior: 'smooth' });
+        });
+    }
 });
+
