@@ -632,4 +632,62 @@ document.addEventListener('DOMContentLoaded', () => {
             }[tag] || tag)
         );
     }
+
+    // ==========================================
+    // 13. Live District Governor Visitation Event Interactivity
+    // ==========================================
+    const copyLinkBtn = document.getElementById('btn-copy-meeting-link');
+    const toastContainer = document.getElementById('site-toast-container');
+
+    window.showSiteToast = function(message, icon = '✨') {
+        if (!toastContainer) return;
+        const toast = document.createElement('div');
+        toast.className = 'site-toast';
+        toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
+        toastContainer.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(10px)';
+            toast.style.transition = 'all 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+        }, 3200);
+    };
+
+    if (copyLinkBtn) {
+        copyLinkBtn.addEventListener('click', () => {
+            const link = copyLinkBtn.getAttribute('data-link') || 'https://meet.google.com/ube-uxmf-sve';
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(link).then(() => {
+                    showSiteToast('Google Meet link copied to clipboard!', '📋');
+                }).catch(() => {
+                    fallbackCopyText(link);
+                });
+            } else {
+                fallbackCopyText(link);
+            }
+        });
+    }
+
+    function fallbackCopyText(text) {
+        const tempInput = document.createElement('input');
+        tempInput.value = text;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+        showSiteToast('Google Meet link copied to clipboard!', '📋');
+    }
+
+    // Flyer Lightbox Trigger
+    const dgFlyerTrigger = document.getElementById('dg-flyer-trigger');
+    if (dgFlyerTrigger) {
+        dgFlyerTrigger.addEventListener('click', () => {
+            const flyerImg = dgFlyerTrigger.querySelector('img');
+            if (flyerImg) {
+                openLightboxModal(flyerImg.src, "District Governor's Club Visitation Programme – Club Visit 17 (Group 7B)");
+            }
+        });
+    }
 });
+
