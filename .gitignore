@@ -24,3 +24,6 @@ video/
 *.zip
 *.tar.gz
 *.rar
+
+# Scratch directories
+scratch/

@@ -85,6 +85,25 @@
         </div>
     </div>
 
+    <!-- Event Highlights Top Bar -->
+    <div class="live-broadcast-bar" id="live-broadcast-bar">
+        <div class="live-broadcast-inner">
+            <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                <span class="live-badge-pulse" style="background: rgba(16, 185, 129, 0.2); border-color: #10b981; color: #a7f3d0;"><span class="pulse-beacon" style="background-color: #10b981; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);"></span> EVENT RECAP</span>
+                <span class="live-broadcast-text">
+                    <strong>District Governor's Club Visitation (Group 7B)</strong> was successfully held on Thursday, 29th Oct 2026!
+                </span>
+            </div>
+            <div class="live-broadcast-actions">
+                <a href="#featured-event" class="live-btn-join">
+                    <span>View Session & Clubs</span> 📜
+                </a>
+                <a href="https://meet.google.com/ube-uxmf-sve" target="_blank" rel="noopener noreferrer" class="live-link-details">Official Room Link 🎥</a>
+            </div>
+        </div>
+    </div>
+
+
     <!-- Navigation Header -->
     <header class="main-header" id="header">
         <div class="header-container">
@@ -212,36 +231,160 @@
             </div>
         </section>
 
-        <!-- Featured Event Section (Takoradi 2026 Convention Promo) -->
+        <!-- Featured Event Section: District Governor's Club Visitation Programme -->
         <section class="featured-event-section id-anchor" id="featured-event">
             <div class="container">
-                <div class="event-banner reveal">
-                    <div class="event-details-col">
-                        <span class="event-badge">Featured Event</span>
-                        <h2>General Assembly 2026</h2>
-                        <p class="event-date">📅 December 1st, 2026</p>
-                        <p class="event-description">Join us for our upcoming General Assembly! We will discuss service
-                            projects for the upcoming quarter, finalize budgets, and coordinate our community outreach
-                            plans. All members and prospective members are welcome.</p>
-                        <div class="event-actions">
-                            <a href="#contact" class="btn btn-primary">RSVP / Contact Us</a>
-                            <a href="#about" class="btn btn-outline"
-                                style="border-color: var(--primary); color: var(--primary);">Learn More</a>
+                <div class="dg-event-card reveal">
+                    <div class="dg-header-grid">
+                        <div>
+                            <div class="dg-event-meta-bar">
+                                <span class="dg-category-badge" style="background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; color: #10b981; font-weight: 800;">✨ Successfully Held • Official Group 7B Session</span>
+                                <span class="dg-category-badge">District 418, Ghana Official Visitation</span>
+                            </div>
+                            <h2 class="dg-event-title">District Governor's Club Visitation Programme</h2>
+                            <p class="dg-event-subtitle">Club Visit 17 – Virtual Session (Clubs Group 7B)</p>
+                            <div class="dg-event-time">
+                                <span>📅 Held on Thursday, 29th October 2026 • 19:00 – 22:00 GMT (Official Virtual Session)</span>
+                            </div>
+
+                            <p style="color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px; font-size: 0.98rem;">
+                                Welcome to the official Joint Virtual Club Visitation by District Governor <strong>Lion Ebo Prah Manson - PMJF, GLCF</strong>. This session united all five Virtual Leo-Lions clubs in District 418 Ghana for administrative reviews, individual club breakout sessions, membership chevron and club excellence awards, and strategic alignment for the 2026/2027 Lions Service Year.
+                            </p>
+
+                            <!-- Key Information Chips -->
+                            <div class="dg-info-chips">
+                                <div class="dg-chip"><span>⏱️</span> <span>Duration: <strong>3 Hours</strong></span></div>
+                                <div class="dg-chip"><span>👔</span> <span>Attire: <strong>District Cloth / Uniform</strong></span></div>
+                                <div class="dg-chip"><span>🎙️</span> <span>MC: <strong>Lion Lorenzo Hayford</strong></span></div>
+                                <div class="dg-chip"><span>🙏</span> <span>Vote of Thanks: <strong>Leo-Lion Afua Asomani</strong></span></div>
+                            </div>
+
+                            <!-- Live Action Buttons -->
+                            <div class="dg-call-to-actions">
+                                <a href="https://meet.google.com/ube-uxmf-sve" target="_blank" rel="noopener noreferrer" class="btn-meet-live">
+                                    <span>Official Meet Room Link</span> 🎥
+                                </a>
+                                <button type="button" class="btn-copy-code" id="btn-copy-meeting-link" data-link="https://meet.google.com/ube-uxmf-sve">
+                                    <span>📋 Copy Meeting Link</span>
+                                </button>
+                                <span style="font-size: 0.85rem; color: var(--text-muted); display: inline-flex; align-items: center; gap: 4px;">
+                                    Meeting code: <strong style="color: var(--text-primary); font-family: monospace; background: var(--bg-secondary); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--border-color);">ube-uxmf-sve</strong>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Guest of Honor Card -->
+                        <div class="dg-guest-badge">
+                            <div class="dg-guest-label">Guest of Honor & Presiding Officer</div>
+                            <h3 class="dg-guest-name">Lion Ebo Prah Manson</h3>
+                            <p class="dg-guest-title">PMJF, GLCF<br>District Governor 2026/2027 LSY<br>Lions International District 418, Ghana</p>
+                            <div style="margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--border-color); font-size: 0.8rem; color: var(--accent, #d4af37); font-weight: 600;">
+                                #Servicefellowshipfriendship<br>#rootedinsevice
+                            </div>
                         </div>
                     </div>
-                    <div class="event-timer-col">
-                        <div class="countdown-container">
-                            <h4>Countdown to Convention</h4>
-                            <div class="countdown-grid">
-                                <div class="countdown-item"><span id="days">00</span><label>Days</label></div>
-                                <div class="countdown-item"><span id="hours">00</span><label>Hrs</label></div>
-                                <div class="countdown-item"><span id="minutes">00</span><label>Min</label></div>
+
+                    <!-- Participating Clubs (Group 7B) -->
+                    <div class="participating-clubs-box">
+                        <div class="participating-clubs-header">
+                            <h3><span>🦁</span> Arrangement of Participating Clubs (Group 7B)</h3>
+                            <span class="participating-badge">5 Virtual Leo-Lions Clubs</span>
+                        </div>
+                        <div class="clubs-grid-showcase">
+                            <!-- Kumasi Heritage (Host Club) -->
+                            <div class="club-showcase-card host-club">
+                                <span class="host-ribbon">Host Club ⭐</span>
+                                <div class="club-showcase-logo-frame">
+                                    <img src="assets/clubs/kumasi_heritage.png" alt="Kumasi Heritage Virtual Leo-Lions Club Logo" loading="lazy">
+                                </div>
+                                <h4 class="club-showcase-name">Kumasi Heritage</h4>
+                                <span class="club-showcase-role">Virtual Leo-Lions Club</span>
                             </div>
+
+                            <!-- Accra Legacy -->
+                            <div class="club-showcase-card">
+                                <div class="club-showcase-logo-frame">
+                                    <img src="assets/clubs/accra_legacy_virtual.jpg" alt="Accra Legacy Virtual Leo-Lions Club Logo" loading="lazy">
+                                </div>
+                                <h4 class="club-showcase-name">Accra Legacy</h4>
+                                <span class="club-showcase-role">Virtual Leo-Lions Club</span>
+                            </div>
+
+                            <!-- Takoradi Nkuranhye -->
+                            <div class="club-showcase-card">
+                                <div class="club-showcase-logo-frame">
+                                    <img src="assets/clubs/takoradi_nkuranhye.jpg" alt="Takoradi Nkuranhye Virtual Leo-Lions Club Logo" loading="lazy">
+                                </div>
+                                <h4 class="club-showcase-name">Takoradi Nkuranhye</h4>
+                                <span class="club-showcase-role">Virtual Leo-Lions Club</span>
+                            </div>
+
+                            <!-- Ho Adido -->
+                            <div class="club-showcase-card">
+                                <div class="club-showcase-logo-frame">
+                                    <img src="assets/clubs/ho_adido.jpg" alt="Ho Adido Virtual Leo-Lions Club Logo" loading="lazy">
+                                </div>
+                                <h4 class="club-showcase-name">Ho Adido</h4>
+                                <span class="club-showcase-role">Virtual Leo-Lions Club</span>
+                            </div>
+
+                            <!-- Westland Boulevard -->
+                            <div class="club-showcase-card">
+                                <div class="club-showcase-logo-frame">
+                                    <img src="assets/clubs/westland_boulevard.jpg" alt="Westland Boulevard Virtual Leo-Lions Club Logo" loading="lazy">
+                                </div>
+                                <h4 class="club-showcase-name">Westland Boulevard</h4>
+                                <span class="club-showcase-role">Virtual Leo-Lions Club</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Programme of Activities & Flyer Lightbox -->
+                    <div class="dg-event-columns">
+                        <!-- Programme List -->
+                        <div class="programme-container">
+                            <h4 style="font-size: 1.15rem; color: var(--text-primary); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+                                <span>📜</span> Official Programme of Activities
+                            </h4>
+                            <ol class="programme-list">
+                                <li class="programme-item"><span class="programme-num">1</span> <div>Arrival of the District Governor, DG Team and District Cabinet Members</div></li>
+                                <li class="programme-item"><span class="programme-num">2</span> <div>Call to Order by the District Governor</div></li>
+                                <li class="programme-item"><span class="programme-num">3</span> <div>Lions Prayer and Pledge</div></li>
+                                <li class="programme-item"><span class="programme-num">4</span> <div>Introduction of Lions and Leos Present</div></li>
+                                <li class="programme-item"><span class="programme-num">5</span> <div>Introduction of District Cabinet Members by District Cabinet Secretary</div></li>
+                                <li class="programme-item"><span class="programme-num">6</span> <div>Welcome Address by Host Club President</div></li>
+                                <li class="programme-item"><span class="programme-num">7</span> <div>Introduction of District Governor by District Cabinet Secretary</div></li>
+                                <li class="programme-item"><span class="programme-num">8</span> <div>District Governor's Address</div></li>
+                                <li class="programme-item"><span class="programme-num">9</span> <div>Brief Reports by Club Presidents & Leo Club Presidents (Membership, service, leadership, dues, LCIF/GLCF, priorities)</div></li>
+                                <li class="programme-item"><span class="programme-num">10</span> <div>Matters Arising from Club Reports</div></li>
+                                <li class="programme-item"><span class="programme-num">11</span> <div>Individual Club Breakout Sessions with District Governor & Cabinet Officers</div></li>
+                                <li class="programme-item"><span class="programme-num">12</span> <div>Presentation and Recognition (Chevron Awards, Club Excellence Awards, Pins)</div></li>
+                                <li class="programme-item"><span class="programme-num">13</span> <div>Announcements</div></li>
+                                <li class="programme-item"><span class="programme-num">14</span> <div>Vote of Thanks (Leo-Lion Afua Asomani)</div></li>
+                                <li class="programme-item"><span class="programme-num">15</span> <div>Adjournment by District Governor</div></li>
+                            </ol>
+                        </div>
+
+                        <!-- Flyer Preview with Lightbox -->
+                        <div class="flyer-preview-container">
+                            <h4 style="font-size: 1.15rem; color: var(--text-primary); margin-bottom: 16px; align-self: flex-start; display: flex; align-items: center; gap: 8px;">
+                                <span>🖼️</span> Official Session Flyer
+                            </h4>
+                            <div class="flyer-preview-wrapper" id="dg-flyer-trigger">
+                                <img src="assets/events/district_governor_visitation_2026.png" alt="District Governor's Club Visitation Programme Group 7B Official Flyer" loading="lazy">
+                                <div class="flyer-overlay-hint">
+                                    <span>🔍 Click to View Full Flyer</span>
+                                </div>
+                            </div>
+                            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 14px;">
+                                Lions Clubs International • District 418 Ghana • All Clubs Group 7B
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
+
 
         <!-- About Us Section -->
         <section class="about-section id-anchor" id="about">
@@ -626,8 +769,36 @@
                 </div>
 
                 <div class="updates-feed" id="updates-feed-container">
+                    <div class="update-card featured-event-card" style="margin-bottom: 30px; border: 2px solid var(--accent, #d4af37);">
+                        <img src="assets/events/district_governor_visitation_2026.png" class="update-card-img" alt="District Governor's Club Visitation Programme Group 7B Official Flyer">
+                        <div class="update-card-body">
+                            <div class="update-card-meta">
+                                <span style="color: #10b981; font-weight: 800;">✨ EVENT RECAP • Thursday, 29th October 2026</span>
+                                <span>🦁 District 418 Ghana</span>
+                            </div>
+                            <h3 class="update-card-title">🌟 District Governor's Club Visitation Programme (Club Visit 17 – Group 7B)</h3>
+                            <p class="update-card-text">
+                                District Governor <strong>Lion Ebo Prah Manson - PMJF, GLCF</strong> officially presided over the Joint Virtual Club Visitation for Group 7B clubs: Kumasi Heritage Virtual, Accra Legacy Virtual, Takoradi Nkuranhye Virtual, Ho Adido Virtual, and Westland Boulevard Virtual Leo-Lions Clubs.
+                            </p>
+                            
+                            <div class="update-card-actions" style="margin-top: 15px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                                <a href="#featured-event" class="btn btn-primary btn-sm">
+                                    View Programme & Participating Clubs 📜
+                                </a>
+                                <a href="https://meet.google.com/ube-uxmf-sve" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm" style="border-color: var(--accent); color: var(--accent);">
+                                    Official Meet Room 🎥
+                                </a>
+                                <span style="font-size: 0.85rem; color: var(--text-muted);">Session Duration: <strong>19:00 - 22:00 GMT</strong></span>
+                            </div>
+                            <div class="update-card-hashtags" style="margin-top: 12px; font-size: 0.85rem; color: var(--accent, #d4af37); font-weight: 600;">
+                                #Servicefellowshipfriendship #rootedinsevice #LionsDistrict418Ghana #KumasiHeritageLeoLions #Group7B
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="update-card featured-event-card" style="margin-bottom: 30px;">
                         <img src="assets/events/heritage_literacy_campaign_2026.jpg" class="update-card-img" alt="Heritage Literacy Campaign 2026 Flyer">
+
                         <div class="update-card-body">
                             <div class="update-card-meta">
                                 <span>📅 September 2026 • September Service Activity</span>
@@ -1419,6 +1590,9 @@
         </svg>
         <span class="arrow-up">▲</span>
     </a>
+
+    <!-- Toast Notification Container -->
+    <div id="site-toast-container" class="site-toast-container" aria-live="polite"></div>
 
     <!-- JS Scripts -->
     <script src="firebase-config.js?v=2"></script>

@@ -249,5 +249,56 @@ document.addEventListener('DOMContentLoaded', () => {
             bdayTrack.scrollBy({ left: 360, behavior: 'smooth' });
         });
     }
+
+    // ==========================================
+    // 6. Native Toast Engine & Interactive Filters
+    // ==========================================
+    const toastContainer = document.getElementById('v2-toast-container');
+
+    window.showV2Toast = function(message, icon = '✨') {
+        if (!toastContainer) return;
+        const toast = document.createElement('div');
+        toast.className = 'v2-toast';
+        toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
+        toastContainer.appendChild(toast);
+
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(10px)';
+            toast.style.transition = 'all 0.3s ease';
+            setTimeout(() => toast.remove(), 300);
+        }, 3200);
+    };
+
+    // Service Pillars Filter Tabs
+    const filterBtns = document.querySelectorAll('.v2-filter-btn');
+    const serviceCards = document.querySelectorAll('#v2-services-grid .service-card-v2');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const category = btn.getAttribute('data-category');
+            showV2Toast(`Filtered view: ${btn.textContent.trim()}`, '🔍');
+
+            serviceCards.forEach(card => {
+                const cardCat = card.getAttribute('data-category');
+                if (category === 'all' || cardCat === category) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
+    });
+
+    // Wish Buttons & Action Toast Listeners
+    document.querySelectorAll('.bday-mini-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            showV2Toast('Opening WhatsApp to send birthday greetings! 💬', '🎉');
+        });
+    });
 });
+
 
